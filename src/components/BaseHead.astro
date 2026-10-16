@@ -5,7 +5,7 @@ interface Props {
   canonicalUrl: string;
   image?: string;
 }
-const { title, description, canonicalUrl, image = '/images/ogi-suasa-1.jpg' } = Astro.props;
+const { title, description, canonicalUrl, image = '/images/ogi-suasa-1.webp' } = Astro.props;
 const ogImage = new URL(image, Astro.site ?? Astro.url).toString();
 const restaurantLd = {
   '@context': 'https://schema.org',

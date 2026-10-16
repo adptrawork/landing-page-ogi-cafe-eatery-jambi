@@ -31,7 +31,7 @@ export type Photo = { key: string; src: string; w: number; h: number; alt: strin
 
 const P = (key: string, w: number, h: number, alt: string): Photo => ({
   key,
-  src: `/images/ogi-${key}.jpg`,
+  src: `/images/ogi-${key}.webp`,
   w,
   h,
   alt,

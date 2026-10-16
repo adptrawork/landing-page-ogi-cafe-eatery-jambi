@@ -16,7 +16,7 @@ export const business = {
   description:
     'OGI Cafe and Eatery Danau Sipin Jambi rating 4.8 (670 ulasan): menu Nusantara–Western–Jepang, parkir luas, reservasi 0822-8052-3250.',
   canonicalPath: '/',
-  ogImage: '/og-ogi.jpg',
+  ogImage: '/og-ogi.webp',
 };
 
 export const waLink = (message: string) =>

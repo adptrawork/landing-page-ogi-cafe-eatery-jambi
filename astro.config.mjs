@@ -6,5 +6,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://ogicafe-jambi.pages.dev',
   output: 'static',
+  compressHTML: true,
+  build: { inlineStylesheets: 'always' },
   integrations: [tailwind(), sitemap()],
 });
