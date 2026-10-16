@@ -24,48 +24,68 @@ const faqLd = {
   '@context': 'https://schema.org', '@type': 'FAQPage',
   mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
 };
+const marqueeItems = [...menuItems.map((m) => m.name), ...menuItems.map((m) => m.name)];
 ---
 <BaseLayout title="OGI Cafe Jambi Danau Sipin — E-Menu & Reservasi Meja" description="OGI Cafe and Eatery Danau Sipin Jambi rating 4.8 (670 ulasan): menu Nusantara–Western–Jepang, kisaran Rp50–75rb/orang, parkir luas, reservasi 0822-8052-3250." canonicalPath="/">
-  <!-- Ref: menu journal/food editorial — hero editorial asimetris (narasi kiri, foto kanan), bukan hero tengah -->
-  <!-- 01 HERO -->
-  <section class="max-w-6xl mx-auto px-4 w-full pt-10 md:pt-16 pb-8">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
-      <div class="md:col-span-7 min-w-0 md:pt-4">
-        <p class="reveal flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-semibold tracking-[0.18em] uppercase text-olive" style="--i:0">
-          <span>OGI Cafe &amp; Eatery</span>
-          <span class="text-olive/40" aria-hidden="true">&bull;</span>
-          <span>Danau Sipin, Kota Jambi</span>
-        </p>
-        <h1 class="reveal mt-5 font-display text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.02] tracking-tight max-w-[15ch]" style="--i:1">
-          Catatan rasa dari dapur kami di tepi Danau Sipin
-        </h1>
-        <p class="reveal mt-6 text-base md:text-lg leading-relaxed text-ink/80 max-w-[58ch]" style="--i:2">
-          Menu Nusantara, Western, dan Jepang, plus kopi, teh, dan dessert. Indoor ber-AC, teras outdoor untuk malam,
-          dan parkir lega untuk rombongan. {business.hours}.
-        </p>
-        <div class="reveal mt-8 grid sm:flex gap-3" style="--i:3">
-          <a href="/menu" class="text-center bg-accent text-paper px-7 py-3.5 min-h-[48px] inline-flex items-center justify-center rounded-full font-semibold hover:opacity-90 active:scale-[0.98] transition">Buka e-menu</a>
-          <a href="/reservasi" class="text-center border border-ink/30 px-7 py-3.5 min-h-[48px] inline-flex items-center justify-center rounded-full font-semibold text-ink hover:border-accent hover:text-accent active:scale-[0.98] transition">Reservasi meja</a>
+  <!-- 01 HERO editorial 65/35 -->
+  <section aria-label="Hero" class="relative overflow-hidden border-b border-ink/15">
+    <div class="max-w-6xl mx-auto px-4 pt-10 md:pt-16 pb-6">
+      <div class="grid grid-cols-1 md:grid-cols-[65fr_35fr] gap-6 md:gap-10 items-center">
+        <div class="min-w-0 md:pr-6 order-1">
+          <p class="reveal text-[10px] sm:text-[11px] tracking-[0.24em] uppercase text-ink/55" style="--i:0">OGI Cafe &amp; Eatery &middot; Danau Sipin &middot; Jambi</p>
+          <h1 class="reveal mt-4 font-display text-5xl sm:text-6xl md:text-7xl leading-[0.9] tracking-[-0.02em] max-w-[11ch]" style="--i:1">
+            Menu journal yang dilipat dari dapur pinggir danau
+          </h1>
+          <p class="reveal mt-6 text-base md:text-lg leading-relaxed text-ink/75 max-w-[46ch]" style="--i:2">
+            Menu Nusantara, Western, dan Jepang, plus kopi, teh, dan dessert. Indoor ber-AC, teras outdoor untuk malam,
+            dan parkir lega untuk rombongan. {business.hours}.
+          </p>
+          <div class="reveal flex flex-wrap gap-3 mt-8" style="--i:3">
+            <a href="/menu" class="bg-accent text-paper px-7 py-3.5 min-h-[48px] inline-flex items-center justify-center rounded-full font-semibold hover:opacity-90 active:scale-[0.98] transition">Buka e-menu</a>
+            <a href="/reservasi" class="border border-ink/30 px-7 py-3.5 min-h-[48px] inline-flex items-center justify-center rounded-full font-semibold text-ink hover:border-accent hover:text-accent active:scale-[0.98] transition">Reservasi meja</a>
+          </div>
+          <dl class="reveal grid grid-cols-3 gap-3 mt-10 max-w-[46ch]" style="--i:4">
+            <div>
+              <dt class="text-[10px] tracking-[0.18em] uppercase text-ink/55">Rating</dt>
+              <dd class="mt-1 font-mono-num text-sm font-semibold text-ink">{business.rating}/5 &middot; {business.reviewCount}</dd>
+            </div>
+            <div>
+              <dt class="text-[10px] tracking-[0.18em] uppercase text-ink/55">Harga</dt>
+              <dd class="mt-1 font-mono-num text-sm font-semibold text-ink">{business.priceRange}</dd>
+            </div>
+            <div>
+              <dt class="text-[10px] tracking-[0.18em] uppercase text-ink/55">Jam</dt>
+              <dd class="mt-1 font-mono-num text-sm font-semibold text-ink">11.00–22.30</dd>
+            </div>
+          </dl>
         </div>
-        <p class="reveal mt-5 text-sm text-ink-muted" style="--i:4">
-          <span class="font-mono-num font-semibold text-ink">{business.rating}</span> dari 5 &middot; {business.reviewCount} ulasan Google &middot; {business.priceRange}
-        </p>
+        <figure class="reveal relative order-2" style="--i:2">
+          <div class="hero-ellipse overflow-hidden bg-ink/5">
+            <img
+              src={photos.suasa.src}
+              alt={photos.suasa.alt}
+              width={photos.suasa.w}
+              height={photos.suasa.h}
+              decoding="async"
+              loading="eager"
+              fetchpriority="high"
+              class="w-full aspect-[3/4] object-cover md:scale-110 md:-translate-x-8 md:-translate-y-4"
+            />
+          </div>
+          <figcaption class="mt-3 text-xs leading-relaxed text-ink/55">Ilustrasi suasana makan, bukan foto lokasi OGI. Kredit: Wikimedia Commons.</figcaption>
+        </figure>
       </div>
-      <figure class="reveal md:col-span-5 min-w-0 md:mt-10 relative" style="--i:2">
-        <div class="absolute -inset-x-3 -inset-y-3 md:-inset-x-4 md:-inset-y-4 bg-paper-2 rounded-[2rem] -z-10" aria-hidden="true"></div>
-        <!-- PERF: hero eager + fetchpriority -->
-        <img
-          src={photos.suasa.src}
-          alt={photos.suasa.alt}
-          width={photos.suasa.w}
-          height={photos.suasa.h}
-          decoding="async"
-          loading="eager"
-          fetchpriority="high"
-          class="photo-fade w-full aspect-[4/3] object-cover rounded-[1.5rem]"
-        />
-        <figcaption class="mt-3 text-xs leading-relaxed text-ink-muted">Ilustrasi suasana makan, bukan foto lokasi OGI. Kredit: Wikimedia Commons.</figcaption>
-      </figure>
+
+      <!-- Tiny kinetic marquee -->
+      <div class="marquee mt-10 md:mt-14 border-y border-ink/20 py-3">
+        <div class="marquee-track" aria-hidden="true">
+          {marqueeItems.map((name) => (
+            <span class="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.2em] uppercase text-ink/55">
+              <span class="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true"></span>{name}
+            </span>
+          ))}
+        </div>
+      </div>
     </div>
   </section>
 
@@ -74,119 +94,136 @@ const faqLd = {
     <InfoStrip waHref={waRes} />
   </div>
 
-  <!-- Ref: menu journal/food editorial — filter kategori + daftar menu dua kolom seperti menu cetak -->
-  <!-- 03 MENU JOURNAL (filter + dua kolom) -->
-  <section aria-label="E-menu" class="max-w-6xl mx-auto px-4 py-12 md:py-20 border-t border-olive/25">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
-      <div class="md:col-span-8 min-w-0">
-        <p class="text-[11px] font-semibold tracking-[0.18em] uppercase text-olive">E-menu &middot; <span class="font-mono-num">{menuItems.length} item</span></p>
-        <h2 class="mt-3 font-display text-3xl md:text-5xl font-semibold tracking-tight leading-[1.05]">Satu halaman untuk makan, minum, kopi, dan dessert</h2>
-      </div>
-      <p class="md:col-span-4 md:text-right text-sm leading-relaxed text-ink-muted">
-        Harga bersumber arsip 2023. Label <strong class="text-ink">Teruji</strong> dan <strong class="text-ink">Estimasi</strong> wajib dikonfirmasi via WhatsApp sebelum memesan.
-      </p>
-    </div>
-    <div class="mt-8">
-      <MenuJournal items={menuItems} />
-    </div>
-    <a href="/menu" class="mt-8 inline-flex items-center gap-2 font-semibold text-accent underline underline-offset-4 decoration-accent/40 min-h-[44px]">
-      Buka halaman e-menu lengkap
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-    </a>
-  </section>
+  <!-- Sticky rail + viewported sections -->
+  <section aria-label="Isi halaman" class="max-w-6xl mx-auto px-4 py-10 md:py-14 border-t border-ink/20">
+    <div class="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8 md:gap-12">
+      <aside class="hidden md:block">
+        <nav class="sticky top-24 space-y-1" aria-label="Indeks bagian">
+          <p class="text-[10px] tracking-[0.24em] uppercase text-ink/50 pb-3">Indeks</p>
+          <a href="#menu" class="block pl-4 py-2 text-sm font-semibold text-ink/55 border-l-2 border-transparent hover:text-accent hover:border-accent transition-colors">01 E-menu</a>
+          <a href="#suasana" class="block pl-4 py-2 text-sm font-semibold text-ink/55 border-l-2 border-transparent hover:text-accent hover:border-accent transition-colors">02 Suasana</a>
+          <a href="#lokasi" class="block pl-4 py-2 text-sm font-semibold text-ink/55 border-l-2 border-transparent hover:text-accent hover:border-accent transition-colors">03 Lokasi</a>
+          <a href="#reservasi" class="block pl-4 py-2 text-sm font-semibold text-ink/55 border-l-2 border-transparent hover:text-accent hover:border-accent transition-colors">04 Reservasi</a>
+          <a href="#faq" class="block pl-4 py-2 text-sm font-semibold text-ink/55 border-l-2 border-transparent hover:text-accent hover:border-accent transition-colors">05 Tanya jawab</a>
+        </nav>
+      </aside>
 
-  <!-- Ref: editorial zig-zag — blok narasi dua kolom + foto lokal bergantian -->
-  <!-- 04 CERITA SUASANA -->
-  <section aria-label="Suasana" class="max-w-6xl mx-auto px-4 py-12 md:py-20 border-t border-olive/25">
-    <p class="text-[11px] font-semibold tracking-[0.18em] uppercase text-olive">Cerita suasana</p>
-    <h2 class="mt-3 font-display text-3xl md:text-4xl font-semibold tracking-tight leading-[1.08] max-w-[24ch]">Meja panjang, cahaya hangat, obrolan yang betah</h2>
+      <div class="space-y-20 md:space-y-28 min-w-0">
+        <!-- 01 MENU -->
+        <section id="menu" class="section-intro min-h-[60svh] md:min-h-[70svh] flex flex-col justify-center">
+          <p class="reveal text-[10px] tracking-[0.24em] uppercase text-ink/50" style="--i:0">01 &middot; E-Menu &middot; {menuItems.length} item</p>
+          <h2 class="reveal mt-4 font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em] max-w-[16ch]" style="--i:1">Satu halaman untuk lapar yang bervariasi</h2>
+          <p class="reveal mt-6 text-base md:text-lg leading-relaxed text-ink/75 max-w-[58ch]" style="--i:2">
+            Semua yang bisa kamu pesan, disusun seperti daftar menu cetak — dua kolom, rapi dibaca.
+            Gunakan filter untuk menyaring Makanan, Minuman, Kopi, atau Dessert.
+          </p>
+          <div class="mt-8">
+            <MenuJournal items={menuItems} />
+          </div>
+          <a href="/menu" class="mt-8 inline-flex items-center gap-2 font-semibold text-accent underline underline-offset-4 decoration-accent/40 min-h-[44px]">
+            Buka halaman e-menu lengkap
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </a>
+        </section>
 
-    <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
-      <div class="min-w-0">
-        <h3 class="font-display text-2xl font-semibold tracking-tight">Ruang dalam yang tenang</h3>
-        <p class="mt-3 text-[15px] leading-relaxed text-ink/75 max-w-[52ch]">
-          Bagian indoor ber-AC dengan meja berjarak — nyaman untuk makan siang kerja, rapat kecil, atau sekadar
-          ngopi sambil membuka laptop. Furnitur kayu dan warna earthy menjaga ruang terasa hangat, bukan ramai.
-        </p>
-      </div>
-      <figure class="min-w-0">
-        <img src={photos.interior.src} alt={photos.interior.alt} width={photos.interior.w} height={photos.interior.h} decoding="async" loading="lazy" class="w-full aspect-[4/3] object-cover rounded-3xl" />
-        <figcaption class="mt-2 text-xs text-ink-muted">Ilustrasi ruang kafe, bukan foto lokasi OGI.</figcaption>
-      </figure>
-    </div>
-
-    <div class="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
-      <figure class="min-w-0 md:order-1">
-        <img src={photos.outdoor.src} alt={photos.outdoor.alt} width={photos.outdoor.w} height={photos.outdoor.h} decoding="async" loading="lazy" class="w-full aspect-[4/3] object-cover rounded-3xl" />
-        <figcaption class="mt-2 text-xs text-ink-muted">Ilustrasi teras kafe, bukan foto lokasi OGI.</figcaption>
-      </figure>
-      <div class="min-w-0 md:order-2">
-        <h3 class="font-display text-2xl font-semibold tracking-tight">Teras untuk malam minggu</h3>
-        <p class="mt-3 text-[15px] leading-relaxed text-ink/75 max-w-[52ch]">
-          Teras outdoor jadi pilihan saat matahari turun. Cocok untuk ngobrol lama, kumpul komunitas, atau makan
-          bareng keluarga besar. Untuk grup di atas 6 orang, amankan meja lewat reservasi H-1.
-        </p>
-        <a href="/galeri" class="mt-5 inline-flex items-center gap-2 font-semibold text-accent underline underline-offset-4 decoration-accent/40 min-h-[44px]">
-          Lihat galeri suasana
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Ref: highlight ber-rule — kategori & jam ramai sebagai daftar, bukan kartu -->
-  <!-- 05 KATEGORI & JAM RAMAI -->
-  <section aria-label="Kategori dan jam ramai" class="max-w-6xl mx-auto px-4 py-12 md:py-20 border-t border-olive/25">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
-      <div class="min-w-0">
-        <p class="text-[11px] font-semibold tracking-[0.18em] uppercase text-olive">Kategori menu</p>
-        <h2 class="mt-3 font-display text-2xl md:text-3xl font-semibold tracking-tight">Apa yang mau kamu cari?</h2>
-        <ul class="mt-6 divide-y divide-olive/25 border-t border-olive/30">
-          {categoryCounts.map((c) => (
-            <li class="grid grid-cols-[1fr_auto] items-baseline gap-4 py-4">
-              <a href={`/menu#menu-journal`} class="font-display text-lg font-semibold tracking-tight text-ink hover:text-accent transition-colors">{c.label}</a>
-              <span class="font-mono-num text-sm text-ink-muted">{String(c.count).padStart(2, '0')} item</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div class="min-w-0">
-        <p class="text-[11px] font-semibold tracking-[0.18em] uppercase text-olive">Jam ramai</p>
-        <h2 class="mt-3 font-display text-2xl md:text-3xl font-semibold tracking-tight">Pilih waktu kunjunganmu</h2>
-        <dl class="mt-6 divide-y divide-olive/25 border-t border-olive/30">
-          {busy.map((b) => (
-            <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-1 sm:gap-4 py-4">
-              <dt class="font-semibold text-[15px]">{b.k} <span class="block text-sm font-normal text-ink-muted">{b.note}</span></dt>
-              <dd class="font-mono-num text-sm text-accent sm:text-right">{b.v}</dd>
+        <!-- 02 SUASANA -->
+        <section id="suasana" class="section-intro space-y-12">
+          <p class="reveal text-[10px] tracking-[0.24em] uppercase text-ink/50" style="--i:0">02 &middot; Suasana</p>
+          <h2 class="reveal mt-3 font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em] max-w-[20ch]" style="--i:1">Meja panjang, cahaya hangat, obrolan yang betah</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
+            <div class="min-w-0">
+              <h3 class="font-display text-2xl font-semibold tracking-tight">Ruang dalam yang tenang</h3>
+              <p class="mt-3 text-[15px] leading-relaxed text-ink/75 max-w-[52ch]">
+                Bagian indoor ber-AC dengan meja berjarak — nyaman untuk makan siang kerja, rapat kecil, atau sekadar
+                ngopi sambil membuka laptop. Furnitur kayu dan warna earthy menjaga ruang terasa hangat, bukan ramai.
+              </p>
             </div>
-          ))}
-        </dl>
-      </div>
-    </div>
-  </section>
+            <figure class="min-w-0">
+              <img src={photos.interior.src} alt={photos.interior.alt} width={photos.interior.w} height={photos.interior.h} decoding="async" loading="lazy" class="w-full aspect-[4/3] object-cover rounded-[2rem]" />
+              <figcaption class="mt-2 text-xs text-ink/55">Ilustrasi ruang kafe, bukan foto lokasi OGI.</figcaption>
+            </figure>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
+            <figure class="min-w-0 md:order-1">
+              <img src={photos.outdoor.src} alt={photos.outdoor.alt} width={photos.outdoor.w} height={photos.outdoor.h} decoding="async" loading="lazy" class="w-full aspect-[4/3] object-cover rounded-[2rem]" />
+              <figcaption class="mt-2 text-xs text-ink/55">Ilustrasi teras kafe, bukan foto lokasi OGI.</figcaption>
+            </figure>
+            <div class="min-w-0 md:order-2">
+              <h3 class="font-display text-2xl font-semibold tracking-tight">Teras untuk malam minggu</h3>
+              <p class="mt-3 text-[15px] leading-relaxed text-ink/75 max-w-[52ch]">
+                Teras outdoor jadi pilihan saat matahari turun. Cocok untuk ngobrol lama, kumpul komunitas, atau makan
+                bareng keluarga besar. Untuk grup di atas 6 orang, amankan meja lewat reservasi H-1.
+              </p>
+              <a href="/galeri" class="mt-5 inline-flex items-center gap-2 font-semibold text-accent underline underline-offset-4 decoration-accent/40 min-h-[44px]">
+                Lihat galeri suasana
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </a>
+            </div>
+          </div>
+        </section>
 
-  <!-- 06 LOKASI (MapFacade + CTA reservasi) -->
-  <div class="max-w-6xl mx-auto px-4 py-12 md:py-20 border-t border-olive/25">
-    <ReviewMaps />
-  </div>
+        <!-- 03 LOKASI -->
+        <section id="lokasi" class="section-intro">
+          <p class="reveal text-[10px] tracking-[0.24em] uppercase text-ink/50" style="--i:0">03 &middot; Lokasi</p>
+          <h2 class="reveal mt-3 font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em] max-w-[18ch]" style="--i:1">Danau Sipin, Kota Jambi</h2>
+          <div class="mt-8">
+            <ReviewMaps />
+          </div>
+        </section>
 
-  <!-- Ref: menu journal — alur reservasi + FAQ penutup -->
-  <!-- 07 CARA RESERVASI + FAQ -->
-  <div class="max-w-6xl mx-auto px-4 py-12 md:py-20 border-t border-olive/25">
-    <StepsReservasi />
-  </div>
+        <!-- 04 RESERVASI -->
+        <section id="reservasi" class="section-intro">
+          <p class="reveal text-[10px] tracking-[0.24em] uppercase text-ink/50" style="--i:0">04 &middot; Reservasi</p>
+          <h2 class="reveal mt-3 font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em] max-w-[18ch]" style="--i:1">Amankan mejamu sebelum malam ramai</h2>
+          <div class="mt-8">
+            <StepsReservasi />
+          </div>
+        </section>
 
-  <section aria-label="FAQ" class="max-w-6xl mx-auto px-4 py-12 md:py-20 border-t border-olive/25">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-      <div class="md:col-span-5 min-w-0">
-        <p class="text-[11px] font-semibold tracking-[0.18em] uppercase text-olive">FAQ</p>
-        <h2 class="mt-3 font-display text-3xl md:text-4xl font-semibold tracking-tight leading-[1.05]">Pertanyaan yang sering muncul</h2>
-        <p class="mt-4 text-[15px] leading-relaxed text-ink/75">Belum terjawab? Chat admin lewat WhatsApp, dibalas cepat saat jam buka.</p>
-      </div>
-      <div class="md:col-span-7 min-w-0">
-        <Faq faqs={faqs} />
+        <!-- 05 KATEGORI & JAM + FAQ -->
+        <section id="faq" class="section-intro border-t border-ink/15 pt-12 mt-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+            <div class="min-w-0">
+              <p class="text-[10px] tracking-[0.24em] uppercase text-ink/50">Kategori menu</p>
+              <h3 class="mt-3 font-display text-2xl md:text-3xl font-semibold tracking-tight">Apa yang mau kamu cari?</h3>
+              <ul class="mt-6 divide-y divide-ink/20 border-t border-ink/20">
+                {categoryCounts.map((c) => (
+                  <li class="grid grid-cols-[1fr_auto] items-baseline gap-4 py-4">
+                    <a href={`/menu#menu-journal`} class="font-display text-lg font-semibold tracking-tight text-ink hover:text-accent transition-colors">{c.label}</a>
+                    <span class="font-mono-num text-sm text-ink/60">{String(c.count).padStart(2, '0')} item</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="min-w-0">
+              <p class="text-[10px] tracking-[0.24em] uppercase text-ink/50">Jam ramai</p>
+              <h3 class="mt-3 font-display text-2xl md:text-3xl font-semibold tracking-tight">Pilih waktu kunjunganmu</h3>
+              <dl class="mt-6 divide-y divide-ink/20 border-t border-ink/20">
+                {busy.map((b) => (
+                  <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-1 sm:gap-4 py-4">
+                    <dt class="font-semibold text-[15px]">{b.k} <span class="block text-sm font-normal text-ink/60">{b.note}</span></dt>
+                    <dd class="font-mono-num text-sm text-accent sm:text-right">{b.v}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 mt-12 md:mt-16">
+            <div class="md:col-span-5 min-w-0">
+              <p class="text-[10px] tracking-[0.24em] uppercase text-ink/50">Tanya jawab</p>
+              <h2 class="mt-3 font-display text-3xl md:text-4xl font-semibold tracking-tight leading-[1.05]">Pertanyaan yang sering muncul</h2>
+              <p class="mt-4 text-[15px] leading-relaxed text-ink/75">Belum terjawab? Chat admin lewat WhatsApp, dibalas cepat saat jam buka.</p>
+            </div>
+            <div class="md:col-span-7 min-w-0">
+              <Faq faqs={faqs} />
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   </section>
   <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
 </BaseLayout>
+EOF
+echo done

@@ -2,15 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* OGI Cafe & Eatery — "Mediterranean menu journal"
-   Palet: paper/ink/olive + satu accent terracotta. Font: Fraunces + Instrument Sans. */
+/* OGI Cafe & Eatery — "menu journal" editorial Awwwards.
+   Palet: paper #F7F2E8 / ink #2D3528 / accent #99482F (hanya). Font: Fraunces + Instrument Sans. */
 :root {
   --paper: #F7F2E8;
-  --paper-2: #E5D9C6;
   --ink: #2D3528;
-  --ink-soft: rgba(45,53,40,.75);
-  --ink-muted: #5B6350;
-  --olive: #586844;
   --accent: #99482F;
   --ease-journal: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -25,18 +21,18 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Display type hidup di Fraunces (opsz variable) */
 h1, h2, h3, .font-display { font-family: 'Fraunces', Georgia, serif; }
-h1, h2 { font-variation-settings: 'SOFT' 40, 'WONK' 0; }
+h1, h2 { font-variation-settings: 'SOFT' 40, 'WONK' 0; font-style: italic; }
 
-/* Angka/etiket teknis pakai tabular figures sistem */
+/* display italic emphasis helper */
+.italic-display { font-family: 'Fraunces', Georgia, serif; font-style: italic; }
+
 .font-mono-num {
   font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
 }
 
-/* Skip-link (aksesibilitas keyboard) */
 .skip-link {
   position: absolute;
   left: 1rem;
@@ -51,7 +47,6 @@ h1, h2 { font-variation-settings: 'SOFT' 40, 'WONK' 0; }
 }
 .skip-link:focus { top: 0.75rem; }
 
-/* Fokus keyboard jelas di seluruh situs */
 a:focus-visible,
 button:focus-visible,
 summary:focus-visible,
@@ -62,7 +57,7 @@ input:focus-visible,
   border-radius: 0.35rem;
 }
 
-/* Animasi masuk: transform + opacity saja, stagger via --i */
+/* Staggered reveal (transform + opacity only) */
 .reveal {
   animation: rise 0.7s var(--ease-journal) both;
   animation-delay: calc(var(--i, 0) * 90ms);
@@ -72,37 +67,103 @@ input:focus-visible,
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Foto hero editorial: melebur ke paper (mask, tanpa glow/gradien warna) */
-.photo-fade {
-  -webkit-mask-image: linear-gradient(to right, #000 76%, transparent 100%);
-  mask-image: linear-gradient(to right, #000 76%, transparent 100%);
+/* Elliptical hero image */
+.hero-ellipse {
+  position: relative;
+  border-radius: 50% 38% 52% 42% / 46% 40% 60% 54%;
+  clip-path: ellipse(50% 48% at 50% 50%);
 }
-@media (max-width: 767px) {
-  .photo-fade {
-    -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
-  }
-}
-
-/* Filter kategori: state terpilih (aria-pressed) deterministik, tanpa bergantung urutan utility */
-.menu-filter[aria-pressed="true"] {
+.hero-ellipse::before {
+  content: "OGI";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 6rem;
+  height: 6rem;
   background: var(--accent);
-  border-color: var(--accent);
   color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transform: rotate(-15deg);
+  border-radius: 50%;
+  opacity: 0.9;
+  mix-blend-mode: multiply;
+  pointer-events: none;
 }
-.menu-filter[aria-pressed="true"]:hover { color: var(--paper); }
 
-/* Baris menu bergaya menu cetak: leader titik + foto zoom halus */
-.dish .dish-img { transition: transform 0.6s var(--ease-journal); }
-.dish:hover .dish-img { transform: scale(1.05); }
-.leader {
-  border-bottom: 1px dotted rgba(88,104,68,.55);
+/* Tiny kinetic marquee of signature dishes */
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 2rem;
+  animation: marquee 40s linear infinite;
+  will-change: transform;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Menu bill rows with leader dots */
+.bill-leader {
+  border-bottom: 1px dotted rgba(45, 53, 40, 0.35);
   transform: translateY(-0.35rem);
 }
+.dish .dish-img { transition: transform 0.6s var(--ease-journal); }
+.dish:hover .dish-img { transform: scale(1.05); }
 
+/* Stamp overlay for hero */
+.stamp {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 6rem;
+  height: 6rem;
+  background: var(--accent);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transform: rotate(-15deg);
+  border-radius: 50%;
+  opacity: 0.9;
+  mix-blend-mode: multiply;
+}
+
+/* Sticky rail pills */
+.pill {
+  transition: background-color 0.2s var(--ease-journal), color 0.2s var(--ease-journal), border-color 0.2s var(--ease-journal);
+}
+
+/* Viewported section intro */
+.section-intro {
+  scroll-margin-top: 7rem;
+}
+
+/* Reduced motion fully reduces */
 @media (prefers-reduced-motion: reduce) {
   .reveal { animation: none; }
   html { scroll-behavior: auto; }
+  .marquee-track { animation: none; }
+  .marquee { overflow-x: auto; }
   .dish .dish-img,
   .dish:hover .dish-img { transition: none; transform: none; }
   *, *::before, *::after {

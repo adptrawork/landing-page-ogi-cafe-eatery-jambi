@@ -23,14 +23,14 @@ const total = items.length;
         type="button"
         data-filter={c.id}
         aria-pressed={c.id === 'all' ? 'true' : 'false'}
-        class="menu-filter min-h-[48px] px-4 rounded-full border border-olive/40 text-sm font-semibold text-ink/80 bg-paper hover:border-accent hover:text-accent active:scale-[0.98] transition"
+        class="menu-filter min-h-[48px] px-4 rounded-full border border-ink/40 text-sm font-semibold text-ink/80 bg-paper hover:border-accent hover:text-accent active:scale-[0.98] transition"
       >{c.label}</button>
     ))}
   </div>
 
   <div class="mt-5 flex items-baseline justify-between gap-4 border-t-2 border-ink/80 pt-3">
-    <p id="menu-status" aria-live="polite" class="font-mono-num text-sm text-ink-muted">{total} item ditampilkan</p>
-    <p class="text-sm text-ink-muted">Teruji = disebut di review &middot; Estimasi = konfirmasi via WA</p>
+    <p id="menu-status" aria-live="polite" class="font-mono-num text-sm text-ink/60">{total} item ditampilkan</p>
+    <p class="text-sm text-ink/60">Teruji = disebut di review &middot; Estimasi = konfirmasi via WA</p>
   </div>
 
   <!-- Ref: daftar menu dua kolom (kiri/kanan seperti menu cetak), dipisah rule, bukan grid 3 kartu -->
@@ -51,7 +51,7 @@ const total = items.length;
   </div>
 
   <!-- Ref: state kosong (muncul hanya saat filter tidak menghasilkan item) -->
-  <p id="menu-empty" hidden class="mt-8 border border-dashed border-olive/40 rounded-3xl px-6 py-10 text-center text-ink-muted">
+  <p id="menu-empty" hidden class="mt-8 border border-dashed border-ink/40 rounded-3xl px-6 py-10 text-center text-ink/60">
     Tidak ada item pada kategori ini. Coba kategori lain, atau
     <a href={waLink(`Halo ${business.name}, saya mau tanya menu lengkap hari ini.`)} target="_blank" rel="noopener" class="text-accent underline underline-offset-4 decoration-accent/40 font-semibold">tanya menu hari ini via WA</a>.
   </p>

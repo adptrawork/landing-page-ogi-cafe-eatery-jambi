@@ -31,10 +31,10 @@ const [imgW, imgH] = dims[seed] ?? [800, 450];
 const teruji = badge === 'Teruji';
 const badgeCls = teruji
   ? 'bg-accent text-paper'
-  : 'border border-olive/50 text-olive';
+  : 'border border-ink/50 text-ink/60';
 ---
-<article class="dish group grid grid-cols-[84px_1fr] sm:grid-cols-[104px_1fr] gap-4 sm:gap-5 border-t border-olive/30 py-6 min-w-0" data-cat={cat} style={`--i:${index}`}>
-  <div class="overflow-hidden rounded-2xl bg-paper-2 self-start">
+<article class="dish group grid grid-cols-[84px_1fr] sm:grid-cols-[104px_1fr] gap-4 sm:gap-5 border-t border-ink/30 py-6 min-w-0" data-cat={cat} style={`--i:${index}`}>
+  <div class="overflow-hidden rounded-2xl bg-ink/6 self-start">
     <img src={localSrc} alt={name} width={imgW} height={imgH} decoding="async" loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} class="dish-img w-full h-[84px] sm:h-[104px] object-cover" />
   </div>
   <div class="min-w-0">
