@@ -1,122 +1,125 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import InfoStrip from '../components/InfoStrip.astro';
+import DishCard from '../components/DishCard.astro';
+import StepsReservasi from '../components/StepsReservasi.astro';
+import ReviewMaps from '../components/ReviewMaps.astro';
+import Faq from '../components/Faq.astro';
 import { business, menuGroups, waLink } from '../data/business';
-const preview = [...menuGroups[0].items.slice(0, 3), menuGroups[1].items[0]];
-const alasan = [
-  { n: '01', t: 'Parkir luas, datang rombongan aman', d: 'Area parkir lega untuk motor dan mobil. Grup keluarga atau komunitas bisa datang bareng tanpa drama cari parkir.' },
-  { n: '02', t: 'Satu tempat, tiga selera negara', d: 'Nusantara, Western, sampai Jepang — Chicken Katsu Don, Quesadilla, sampai Nasi Goreng OGI Spesial dalam satu meja.' },
-  { n: '03', t: 'Betah: board games + spot foto', d: 'Malam minggu diisi main bareng dan foto-foto. Weekend ramai, amankan meja dari H-1 untuk grup di atas 6 orang.' },
+const seedFor = (n: string) => `ogi-${n.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+const highlights = [
+  { ...menuGroups[0].items[0] }, { ...menuGroups[0].items[1] },
+  { ...menuGroups[0].items[2] }, { ...menuGroups[1].items[0] },
 ];
+const suasana = [
+  { seed: 'ogi-interior-1', alt: 'Area indoor cozy OGI Cafe', cap: 'Indoor cozy — AC + colokan' },
+  { seed: 'ogi-outdoor-1', alt: 'Area outdoor OGI Cafe malam hari', cap: 'Outdoor — nongkrong malam' },
+  { seed: 'ogi-spot-1', alt: 'Spot foto instagramable OGI Cafe', cap: 'Spot foto — ganti foto asli' },
+  { seed: 'ogi-group-1', alt: 'Area grup dan parkir luas OGI', cap: 'Area grup + parkir luas' },
+];
+const quotes = [
+  { q: 'Tempatnya cozy, matcha latte-nya juara. Parkir luas jadi gampang bawa keluarga.', by: 'Pengunjung — Danau Sipin' },
+  { q: 'Chicken katsu don porsinya pas, quesadilla-nya juga enak. Malam minggu ramai.', by: 'Pengunjung — Kota Jambi' },
+  { q: 'Board games + spot foto bikin betah. Booking H-1 via WA dibalas cepat.', by: 'Pengunjung — grup nongkrong' },
+];
+const faqs = [
+  { q: 'Kapan jam paling sibuk?', a: 'Padat jam 12.00–13.30 dan 18.30–21.00. Datang sebelum jam 18.00 atau reservasi H-1 untuk malam minggu.' },
+  { q: 'Apakah parkir luas?', a: 'Ya — area parkir lega untuk motor dan mobil, aman untuk rombongan keluarga dan komunitas.' },
+  { q: 'Bisa untuk grup besar?', a: 'Bisa. Grup di atas 6 orang wajib reservasi H-1 via WhatsApp 0822-8052-3250 agar meja disiapkan.' },
+  { q: 'Bagaimana pembayarannya?', a: 'Bayar di tempat (tunai/transfer/QRIS — konfirmasi ke admin). Item berlabel Estimasi wajib konfirmasi harga via WA.' },
+];
+const faqLd = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
 ---
 <BaseLayout title="OGI Cafe Jambi Danau Sipin — Basecamp Nongkrong & E-Menu" description="OGI Cafe and Eatery Danau Sipin Jambi rating 4.8 (670 ulasan): basecamp nongkrong anak muda, menu Nusantara–Western–Jepang Rp50–75rb, parkir luas, reservasi 0822-8052-3250." canonicalPath="/" image={business.ogImage}>
+  <!-- Ref: Awwwards GEM homepage hero + Plerdy 2025 nav/CTA jelas -->
+  <!-- 01 HERO -->
   <section class="max-w-6xl mx-auto px-4 w-full">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center py-12 md:py-16">
-      <div class="md:col-span-7 reveal">
+      <div class="md:col-span-7 reveal min-w-0">
         <p class="flex flex-wrap items-center gap-2 text-sm font-medium text-orange-800">
           <svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128 16l36 74 82 12-59 58 14 82-73-38-73 38 14-82-59-58 82-12z"/></svg>
           <span class="font-mono-num">4.8 (670 ulasan)</span>
           <span class="text-stone-500">&bull; Danau Sipin &bull; Rp50&ndash;75rb/orang</span>
         </p>
         <h1 class="mt-4 text-4xl md:text-6xl tracking-tight leading-[1.02] font-extrabold">OGI Cafe &mdash; basecamp nongkrong anak Danau Sipin</h1>
-        <p class="mt-5 text-base text-stone-600 leading-relaxed max-w-[65ch]">Di Jl. Empu Sendok No.54: indoor cozy, outdoor buat begadang santai, board games, dan menu Nusantara&ndash;Western&ndash;Jepang. {business.hours}.</p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href="/menu" class="btn-ripple bg-orange-800 text-orange-50 px-7 py-3.5 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Lihat E-Menu</a>
-          <a href="/reservasi" class="border border-stone-300 px-7 py-3.5 rounded-full font-semibold hover:border-orange-800 hover:text-orange-800 active:scale-[0.97] transition">Reservasi Meja</a>
-        </div>
-        <div class="mt-8 flex divide-x divide-orange-800/15 border-t border-orange-800/15 pt-5 text-sm">
-          <div class="pr-6"><p class="font-mono-num font-semibold">4.8</p><p class="text-stone-500">670 ulasan</p></div>
-          <div class="px-6"><p class="font-mono-num font-semibold">11&ndash;22.30</p><p class="text-stone-500">Buka tiap hari</p></div>
-          <div class="pl-6"><p class="font-mono-num font-semibold">0822-8052-3250</p><p class="text-stone-500">Reservasi WA</p></div>
+        <p class="mt-5 text-base text-stone-600 leading-relaxed max-w-[65ch]">Jl. Empu Sendok No.54, Solok Sipin — indoor cozy, outdoor buat begadang santai, board games, menu Nusantara&ndash;Western&ndash;Jepang. {business.hours}.</p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <a href="/menu" class="text-center bg-orange-800 text-orange-50 px-7 py-3.5 min-h-[48px] inline-flex items-center justify-center rounded-full font-semibold hover:-translate-y-0.5 active:scale-[0.97] transition">Lihat Menu</a>
+          <a href="/reservasi" class="text-center border border-stone-300 px-7 py-3.5 min-h-[48px] inline-flex items-center justify-center rounded-full font-semibold hover:border-orange-800 hover:text-orange-800 active:scale-[0.97] transition">Reservasi</a>
         </div>
       </div>
-      <div class="md:col-span-5 reveal">
-        <img src="https://picsum.photos/seed/ogi-cafe-jambi/800/600" alt="Suasana nongkrong OGI Cafe and Eatery Jambi" width="800" height="600" loading="eager" fetchpriority="high" class="photo-fade w-full aspect-[4/3] object-cover rounded-3xl" />
-        <div class="mt-2 flex items-start justify-between gap-4">
-          <p class="text-sm text-stone-600"><strong class="text-stone-800">Parkir luas, cocok keluarga.</strong> Indoor cozy + outdoor malam minggu.</p>
-          <p class="font-mono-num text-xs text-orange-800 whitespace-nowrap border border-orange-800/30 rounded-full px-3 py-1.5">H-1 grup &gt;6</p>
-        </div>
-        <p class="mt-2 text-xs text-stone-400">Foto placeholder &mdash; ganti foto asli interior &amp; menu.</p>
+      <div class="md:col-span-5 reveal min-w-0">
+        <!-- PERF: hero eager + fetchpriority + srcset/sizes -->
+        <img src="https://picsum.photos/seed/ogi-cafe-jambi/800/600" srcset="https://picsum.photos/seed/ogi-cafe-jambi/400/300 400w, https://picsum.photos/seed/ogi-cafe-jambi/800/600 800w" sizes="100vw" alt="Suasana nongkrong OGI Cafe and Eatery Jambi" width="800" height="600" decoding="async" loading="eager" fetchpriority="high" class="photo-fade w-full aspect-[4/3] object-cover rounded-3xl" />
+        <p class="mt-2 text-xs text-stone-400">Foto placeholder &mdash; ganti foto asli interior &amp; menu berizin.</p>
       </div>
     </div>
   </section>
 
-  <section class="max-w-6xl mx-auto px-4 py-10">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-      <div class="md:col-span-5">
-        <p class="text-sm font-semibold text-orange-800">Kenapa OGI</p>
-        <h2 class="mt-2 text-3xl md:text-4xl tracking-tight leading-none font-extrabold">Bukan sekadar kafe, ini markas</h2>
-        <p class="mt-3 text-base text-stone-600">Tiga alasan anak Sipin balik lagi ke Empu Sendok No.54.</p>
-        <a href="/galeri" class="mt-5 inline-block underline underline-offset-4 decoration-orange-800 text-sm font-medium">Intip suasananya</a>
-      </div>
-      <div class="md:col-span-7">
-        <ol class="divide-y divide-orange-800/15 border-y border-orange-800/15">
-          {alasan.map((a) => (
-            <li class="py-5 flex gap-5">
-              <span class="font-mono-num text-sm text-orange-800 pt-1">{a.n}</span>
-              <div>
-                <h3 class="font-bold text-lg tracking-tight">{a.t}</h3>
-                <p class="mt-1 text-base text-stone-600">{a.d}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
-  </section>
+  <!-- 02 INFO STRIP -->
+  <div class="py-6 md:py-8"><InfoStrip waHref={waLink(`Halo ${business.name}, saya mau reservasi meja.`)} /></div>
 
-  <section class="max-w-6xl mx-auto px-4 py-10">
-    <div class="flex items-end justify-between gap-4">
-      <div>
-        <p class="text-sm font-semibold text-orange-800">Paling sering dipesan</p>
-        <h2 class="mt-2 text-3xl md:text-4xl tracking-tight leading-none font-extrabold">Geser buat lapar mata</h2>
+  <!-- Ref: Themetags — menu highlight visual -->
+  <!-- 03 MENU HIGHLIGHTS -->
+  <section aria-label="Menu andalan" class="max-w-6xl mx-auto px-4 py-12 md:py-16">
+    <div class="flex items-end justify-between gap-4 min-w-0">
+      <div class="min-w-0">
+        <p class="text-sm font-semibold text-orange-800">Menu highlights</p>
+        <h2 class="mt-2 text-3xl md:text-4xl tracking-tight leading-none font-extrabold">Paling sering dipesan</h2>
       </div>
-      <a href="/menu" class="hidden sm:inline-block text-sm font-medium underline underline-offset-4 decoration-orange-800 shrink-0">Semua menu</a>
+      <a href="/menu" class="shrink-0 text-sm font-medium underline underline-offset-4 decoration-orange-800 min-h-[48px] inline-flex items-center">E-menu penuh</a>
     </div>
-    <div class="snap-row mt-6 flex gap-5 overflow-x-auto pb-4 md:columns-2 md:block md:overflow-visible">
-      {preview.map((m) => (
-        <article class="w-[76%] sm:w-[44%] shrink-0 md:w-full md:mb-6 md:break-inside-avoid">
-          <img src={`https://picsum.photos/seed/ogi-${m.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}/800/600`} alt={m.name} width="800" height="600" loading="lazy" class="w-full aspect-[16/10] object-cover rounded-3xl" />
-          <div class="mt-3 flex items-start justify-between gap-3">
-            <div>
-              <h3 class="font-bold tracking-tight">{m.name}</h3>
-              <p class="text-xs text-stone-500">{m.badge} &mdash; {m.desc}</p>
-            </div>
-            <p class="font-mono-num font-semibold text-orange-800 whitespace-nowrap">{m.price}</p>
-          </div>
-        </article>
+    <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+      {highlights.map((m, i) => (
+        <DishCard name={m.name} price={m.price} badge={m.badge} desc={m.desc} seed={seedFor(m.name)} eager={i === 0} waHref={waLink(`Halo ${business.name}, saya mau pesan ${m.name} (${m.price}). Apakah tersedia?`)} />
       ))}
     </div>
-    <p class="mt-2 text-sm text-stone-500">Di layar besar tampil masonry dua kolom. Harga <strong>Estimasi</strong> wajib konfirmasi via <a class="underline text-stone-800" href="/reservasi">WhatsApp</a>.</p>
   </section>
 
-  <section class="max-w-6xl mx-auto px-4 py-10">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-      <div class="md:col-span-8">
-        <p class="text-sm font-semibold text-orange-800">Jam &amp; lokasi</p>
-        <h2 class="mt-2 text-3xl md:text-4xl tracking-tight leading-none font-extrabold">Sibuk jam makan, datang lebih awal</h2>
-        <p class="mt-3 text-base text-stone-600 max-w-[65ch]">Padat 12.00&ndash;13.30 &amp; 18.30&ndash;21.00. {business.address}.</p>
-        <div class="mt-5 flex flex-wrap gap-3">
-          <a href={business.mapsUrl} target="_blank" rel="noopener" class="border border-stone-300 px-6 py-3 rounded-full text-sm font-semibold hover:border-orange-800 hover:text-orange-800 active:scale-[0.97] transition">Rute ke lokasi</a>
-          <a href="/reservasi" class="btn-ripple bg-orange-800 text-orange-50 px-6 py-3 rounded-full text-sm font-semibold active:scale-[0.97] transition">Amankan meja</a>
-        </div>
+  <!-- 04 SUASANA -->
+  <section aria-label="Suasana" class="max-w-6xl mx-auto px-4 py-12 md:py-16">
+    <p class="text-sm font-semibold text-orange-800">Suasana</p>
+    <h2 class="mt-2 text-3xl md:text-4xl tracking-tight leading-none font-extrabold">Indoor cozy, outdoor santai, parkir lega</h2>
+    <p class="mt-3 text-base text-stone-600 max-w-[65ch]">Indoor ber-AC, outdoor untuk malam minggu, rooftop/spot foto, dan parkir luas untuk rombongan.</p>
+    <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+      {suasana.map((s, i) => (
+        <figure class="min-w-0">
+          <img src={`https://picsum.photos/seed/${s.seed}/800/450`} srcset={`https://picsum.photos/seed/${s.seed}/400/225 400w, https://picsum.photos/seed/${s.seed}/800/450 800w`} sizes="(max-width: 640px) 100vw, 50vw" alt={s.alt} width="800" height="450" decoding="async" loading="lazy" class="w-full aspect-video object-cover rounded-3xl" />
+          <figcaption class="mt-2 text-sm text-stone-500">{s.cap}{i === 0 ? ' — foto placeholder, ganti foto asli' : ''}</figcaption>
+        </figure>
+      ))}
+    </div>
+    <a href="/galeri" class="mt-5 inline-flex items-center underline underline-offset-4 decoration-orange-800 text-sm font-medium min-h-[48px]">Lihat galeri lengkap</a>
+  </section>
+
+  <!-- 05 CARA RESERVASI -->
+  <div class="py-12 md:py-16 border-t border-orange-800/10"><StepsReservasi /></div>
+
+  <!-- 06 REVIEWS + MAPS -->
+  <div class="py-12 md:py-16 border-t border-orange-800/10"><ReviewMaps quotes={quotes} /></div>
+
+  <!-- 07 FAQ + FINAL CTA -->
+  <section aria-label="FAQ dan reservasi" class="max-w-6xl mx-auto px-4 py-12 md:py-16 border-t border-orange-800/10">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+      <div class="md:col-span-7 min-w-0">
+        <p class="text-sm font-semibold text-orange-800">FAQ</p>
+        <h2 class="mt-2 text-3xl md:text-4xl tracking-tight leading-none font-extrabold">Sering ditanyakan</h2>
+        <div class="mt-5"><Faq faqs={faqs} /></div>
       </div>
-      <div class="md:col-span-4">
-        <div class="rounded-3xl overflow-hidden border border-orange-800/15 aspect-[4/3] bg-orange-800/5">
-          <iframe title="Peta OGI Cafe and Eatery" src={business.mapsEmbed} loading="lazy" class="w-full h-full"></iframe>
+      <div class="md:col-span-5">
+        <div class="bg-orange-800 text-orange-50 rounded-3xl p-8 md:p-10 md:sticky md:top-24">
+          <h2 class="text-2xl md:text-3xl tracking-tight font-extrabold leading-tight">Malam minggu penuh? Booking dulu, nongkrong tenang.</h2>
+          <p class="mt-2 text-orange-100/90 text-sm">Isi form 1 menit, pesan terkirim rapi ke WhatsApp admin.</p>
+          <div class="mt-6 flex flex-col gap-3">
+            <a href="/reservasi" class="text-center bg-orange-50 text-orange-800 px-8 py-3.5 min-h-[48px] inline-flex items-center justify-center rounded-full font-bold active:scale-[0.97] transition">Reservasi meja</a>
+            <a href="/menu" class="text-center border border-orange-50/40 px-8 py-3.5 min-h-[48px] inline-flex items-center justify-center rounded-full font-semibold hover:bg-orange-50/10 transition">Lihat menu dulu</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
-
-  <section class="max-w-6xl mx-auto px-4 py-12">
-    <div class="bg-orange-800 text-orange-50 rounded-3xl p-8 md:p-10 grid gap-6 md:grid-cols-12 md:items-center">
-      <div class="md:col-span-8">
-        <h2 class="text-2xl md:text-3xl tracking-tight font-extrabold">Malam minggu penuh? Booking dulu, nongkrong tenang.</h2>
-        <p class="mt-2 text-orange-100/90">Isi form 1 menit, pesan terkirim rapi ke WhatsApp admin.</p>
-      </div>
-      <div class="md:col-span-4 md:text-right">
-        <a href={waLink('Halo OGI Cafe and Eatery, saya mau reservasi meja untuk malam ini.')} target="_blank" rel="noopener" class="btn-ripple inline-block bg-orange-50 text-orange-800 px-8 py-3.5 rounded-full font-bold active:scale-[0.97] transition">Chat Admin</a>
-      </div>
-    </div>
-  </section>
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
 </BaseLayout>

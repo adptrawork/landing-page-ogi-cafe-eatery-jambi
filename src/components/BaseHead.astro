@@ -52,8 +52,9 @@ const restaurantLd = {
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={ogImage} />
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<!-- PERF: Cabinet Grotesk max 3 weights + display=swap, tanpa @import -->
 <link
-  href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk[400,500,700,800]&display=swap"
+  href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk[500,700,800]&display=swap"
   rel="stylesheet"
 />
 <script type="application/ld+json" set:html={JSON.stringify(restaurantLd)} />

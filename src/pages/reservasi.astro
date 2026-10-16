@@ -1,75 +1,105 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Faq from '../components/Faq.astro';
 import { business } from '../data/business';
 const faqs = [
-  { q: 'Perlu reservasi atau bisa walk-in?', a: 'Bisa walk-in di jam sepi. Untuk grup di atas 6 orang atau malam minggu, reservasi H-1 via WhatsApp 0822-8052-3250 sangat disarankan.' },
-  { q: 'Bagaimana cara booking meja?', a: 'Isi form di halaman ini lalu tekan kirim — pesan terformat rapi otomatis terbuka di WhatsApp admin. Tanpa akun, tanpa antre telepon.' },
-  { q: 'Kapan jam paling ramai?', a: 'Padat jam 12.00–13.30 dan 18.30–21.00. Datang sebelum jam 18.00 atau booking slot malam lebih aman.' },
-  { q: 'Apakah harga menu pasti?', a: 'Item berlabel Teruji harganya disebut di review. Item Estimasi wajib konfirmasi ulang via WA karena bisa berubah.' },
+  { q: 'Perlu reservasi atau bisa walk-in?', a: 'Bisa walk-in di jam sepi. Grup di atas 6 orang atau malam minggu: reservasi H-1 via WhatsApp 0822-8052-3250.' },
+  { q: 'Bagaimana cara booking meja?', a: 'Isi form di halaman ini lalu tekan kirim — pesan terformat rapi otomatis terbuka di WhatsApp admin. Tanpa akun.' },
+  { q: 'Kapan jam paling ramai?', a: 'Padat 12.00–13.30 dan 18.30–21.00. Datang sebelum jam 18.00 atau booking slot malam lebih aman.' },
+  { q: 'Apakah harga menu pasti?', a: 'Item Teruji disebut di review. Item Estimasi wajib konfirmasi ulang via WA karena bisa berubah.' },
 ];
 const faqLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
+  '@context': 'https://schema.org', '@type': 'FAQPage',
   mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
 };
 ---
-<BaseLayout title="Reservasi OGI Cafe Jambi — Booking Meja via WA" description="Booking meja OGI Cafe Jl Empu Sendok Danau Sipin Jambi: isi form 1 menit, terkirim via WhatsApp 0822-8052-3250. Grup >6 orang disarankan H-1. Jawaban FAQ reservasi." canonicalPath="/reservasi">
-  <section class="max-w-6xl mx-auto px-4 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-      <div class="md:col-span-7">
+<BaseLayout title="Reservasi OGI Cafe Jambi — Booking Meja via WA" description="Booking meja OGI Cafe Jl Empu Sendok Danau Sipin Jambi: isi form 1 menit, terkirim via WhatsApp 0822-8052-3250. Grup >6 orang disarankan H-1." canonicalPath="/reservasi">
+  <section class="max-w-6xl mx-auto px-4 py-12 md:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+      <div class="md:col-span-7 min-w-0">
         <p class="text-sm font-semibold text-orange-800">Reservasi &bull; tanpa akun</p>
         <h1 class="mt-2 text-4xl md:text-6xl tracking-tight leading-[1.02] font-extrabold">Amankan mejamu malam ini</h1>
         <p class="mt-3 text-base text-stone-600 max-w-[65ch]">Isi form, tekan kirim &mdash; pesan terformat rapi terbuka di WhatsApp 0822-8052-3250.</p>
-        <form id="book" class="mt-8 border border-orange-800/15 rounded-3xl p-6 md:p-8 space-y-4 bg-white/60">
-          <div><label for="nama" class="text-sm font-semibold">Nama</label><input id="nama" required placeholder="Nama kamu" class="mt-1 w-full border border-stone-300 rounded-2xl px-4 py-3 min-h-[48px] bg-white focus:border-orange-800 focus:outline-none" /><p class="text-xs text-stone-500 mt-1">Wajib diisi.</p></div>
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div><label for="tgl" class="text-sm font-semibold">Tanggal</label><input id="tgl" type="date" required class="mt-1 w-full border border-stone-300 rounded-2xl px-4 py-3 min-h-[48px] bg-white focus:border-orange-800 focus:outline-none" /><p class="text-xs text-stone-500 mt-1">Minimal hari ini.</p></div>
-            <div><label for="jam" class="text-sm font-semibold">Jam</label><input id="jam" type="time" required class="mt-1 w-full border border-stone-300 rounded-2xl px-4 py-3 min-h-[48px] bg-white focus:border-orange-800 focus:outline-none" /><p class="text-xs text-stone-500 mt-1">Lihat jam buka di samping.</p></div>
+        <!-- Ref: form 48px + error di bawah input + helper -->
+        <form id="book" class="mt-8 border border-orange-800/15 rounded-3xl p-6 md:p-8 space-y-5 bg-white/60" novalidate>
+          <div>
+            <label for="nama" class="text-sm font-semibold">Nama</label>
+            <input id="nama" name="nama" required placeholder="Nama kamu" autocomplete="name" class="mt-1 w-full border border-stone-300 rounded-2xl px-4 py-3 min-h-[48px] bg-white focus:border-orange-800 focus:outline-none" />
+            <p class="text-xs text-stone-500 mt-1">Wajib diisi — nama pemesan meja.</p>
+            <p data-err="nama" class="hidden text-sm text-red-700 mt-1 font-medium">Isi nama dulu ya.</p>
           </div>
-          <div><label for="pax" class="text-sm font-semibold">Jumlah orang</label><input id="pax" type="number" min="1" max="120" value="2" required class="mt-1 w-full border border-stone-300 rounded-2xl px-4 py-3 min-h-[48px] bg-white focus:border-orange-800 focus:outline-none" /><p id="err" class="hidden text-sm text-orange-800 mt-1 font-medium">Jumlah minimal 1 orang.</p></div>
-          <div><label for="cat" class="text-sm font-semibold">Catatan (opsional)</label><input id="cat" placeholder="Area indoor / ultah / kursi bayi" class="mt-1 w-full border border-stone-300 rounded-2xl px-4 py-3 min-h-[48px] bg-white focus:border-orange-800 focus:outline-none" /></div>
-          <button class="btn-ripple bg-orange-800 text-orange-50 px-7 py-3.5 rounded-full font-bold transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Kirim via WhatsApp</button>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label for="tgl" class="text-sm font-semibold">Tanggal</label>
+              <input id="tgl" name="tgl" type="date" required class="mt-1 w-full border border-stone-300 rounded-2xl px-4 py-3 min-h-[48px] bg-white focus:border-orange-800 focus:outline-none" />
+              <p class="text-xs text-stone-500 mt-1">Minimal hari ini.</p>
+              <p data-err="tgl" class="hidden text-sm text-red-700 mt-1 font-medium">Pilih tanggal hari ini atau sesudahnya.</p>
+            </div>
+            <div>
+              <label for="jam" class="text-sm font-semibold">Jam</label>
+              <input id="jam" name="jam" type="time" required class="mt-1 w-full border border-stone-300 rounded-2xl px-4 py-3 min-h-[48px] bg-white focus:border-orange-800 focus:outline-none" />
+              <p class="text-xs text-stone-500 mt-1">Lihat jam buka di samping.</p>
+              <p data-err="jam" class="hidden text-sm text-red-700 mt-1 font-medium">Pilih jam kedatangan.</p>
+            </div>
+          </div>
+          <div>
+            <label for="pax" class="text-sm font-semibold">Jumlah orang</label>
+            <input id="pax" name="pax" type="number" min="1" max="120" value="2" required inputmode="numeric" class="mt-1 w-full border border-stone-300 rounded-2xl px-4 py-3 min-h-[48px] bg-white focus:border-orange-800 focus:outline-none" />
+            <p class="text-xs text-stone-500 mt-1">Grup &gt;6 orang disarankan H-1.</p>
+            <p data-err="pax" class="hidden text-sm text-red-700 mt-1 font-medium">Jumlah minimal 1 orang.</p>
+          </div>
+          <div>
+            <label for="cat" class="text-sm font-semibold">Catatan (opsional)</label>
+            <input id="cat" name="cat" placeholder="Area indoor / ultah / kursi bayi" class="mt-1 w-full border border-stone-300 rounded-2xl px-4 py-3 min-h-[48px] bg-white focus:border-orange-800 focus:outline-none" />
+            <p class="text-xs text-stone-500 mt-1">Contoh: area indoor, bawa anak kecil.</p>
+          </div>
+          <button type="submit" class="w-full sm:w-auto bg-orange-800 text-orange-50 px-7 py-3.5 min-h-[48px] rounded-full font-bold hover:-translate-y-0.5 active:scale-[0.97] transition">Kirim via WhatsApp</button>
         </form>
       </div>
-      <div class="md:col-span-5">
-        <div class="border border-orange-800/15 rounded-3xl p-6 md:p-8 bg-orange-800/[0.05]">
+      <div class="md:col-span-5 min-w-0">
+        <div class="border border-orange-800/15 rounded-3xl p-6 md:p-8 bg-orange-800/[0.05] md:sticky md:top-24">
           <p class="font-bold">Info kunjungan</p>
           <p class="mt-2 text-sm text-stone-600">{business.address}</p>
           <p class="mt-1 text-sm text-stone-600">{business.hours}</p>
           <p class="mt-1 font-mono-num text-sm font-semibold text-orange-800">0822-8052-3250</p>
           <p class="mt-3 text-sm text-stone-600">Sibuk 12.00&ndash;13.30 &amp; 18.30&ndash;21.00. Grup &gt;6 orang reservasi H-1.</p>
-          <a class="mt-4 inline-block underline underline-offset-4 decoration-orange-800 text-sm font-medium" href={business.mapsUrl} target="_blank" rel="noopener">Rute ke lokasi</a>
+          <a class="mt-4 inline-flex items-center underline underline-offset-4 decoration-orange-800 text-sm font-medium min-h-[48px]" href={business.mapsUrl} target="_blank" rel="noopener">Rute ke lokasi</a>
         </div>
         <div class="mt-6">
           <h2 class="font-bold text-lg tracking-tight">Tanya jawab reservasi</h2>
-          <div class="mt-3 divide-y divide-orange-800/15 border-y border-orange-800/15">
-            {faqs.map((f) => (
-              <details class="py-4 group">
-                <summary class="cursor-pointer font-semibold text-[15px] list-none flex justify-between gap-4">{f.q}<span class="text-orange-800 transition-transform duration-300 group-open:rotate-45">+</span></summary>
-                <p class="mt-2 text-sm text-stone-600">{f.a}</p>
-              </details>
-            ))}
-          </div>
+          <div class="mt-3"><Faq faqs={faqs} /></div>
         </div>
       </div>
     </div>
   </section>
 <script is:inline>
-document.getElementById('book').addEventListener('submit', function(e) {
-  e.preventDefault();
-  var nama = document.getElementById('nama').value.trim();
-  var tgl = document.getElementById('tgl').value;
-  var jam = document.getElementById('jam').value;
-  var pax = parseInt(document.getElementById('pax').value, 10);
-  var cat = document.getElementById('cat').value.trim();
-  var err = document.getElementById('err');
-  if (!nama || !tgl || !jam || !(pax >= 1)) { err.classList.remove('hidden'); return; }
-  err.classList.add('hidden');
-  var today = new Date().toISOString().slice(0,10);
-  if (tgl < today) { err.textContent = 'Tanggal tidak boleh lampau.'; err.classList.remove('hidden'); return; }
-  var msg = 'Halo OGI Cafe and Eatery, saya mau reservasi meja. Nama: ' + nama + '. Tanggal: ' + tgl + ' jam ' + jam + '. Jumlah: ' + pax + ' orang.' + (cat ? ' Catatan: ' + cat : '');
-  window.open('https://wa.me/6282280523250?text=' + encodeURIComponent(msg), '_blank');
-});
+(function () {
+  var form = document.getElementById('book');
+  if (!form) return;
+  function err(n, on, msg) {
+    var p = form.querySelector('[data-err="' + n + '"]');
+    if (!p) return;
+    if (msg) p.textContent = msg;
+    p.classList.toggle('hidden', !on);
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nama = document.getElementById('nama').value.trim();
+    var tgl = document.getElementById('tgl').value;
+    var jam = document.getElementById('jam').value;
+    var pax = parseInt(document.getElementById('pax').value, 10);
+    var cat = document.getElementById('cat').value.trim();
+    var ok = true;
+    if (!nama) { err('nama', true); ok = false; } else err('nama', false);
+    var today = new Date().toISOString().slice(0, 10);
+    if (!tgl || tgl < today) { err('tgl', true); ok = false; } else err('tgl', false);
+    if (!jam) { err('jam', true); ok = false; } else err('jam', false);
+    if (!(pax >= 1)) { err('pax', true); ok = false; } else err('pax', false);
+    if (!ok) return;
+    var msg = 'Halo OGI Cafe and Eatery, saya mau reservasi meja. Nama: ' + nama + '. Tanggal: ' + tgl + ' jam ' + jam + '. Jumlah: ' + pax + ' orang.' + (cat ? ' Catatan: ' + cat : '');
+    window.open('https://wa.me/6282280523250?text=' + encodeURIComponent(msg), '_blank');
+  });
+})();
 </script>
 <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
 </BaseLayout>

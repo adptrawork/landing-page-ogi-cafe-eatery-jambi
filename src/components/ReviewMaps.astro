@@ -1,0 +1,37 @@
+---
+/* Ref: Awwwards GEM — maps integration via FACADE; Ref: Themetags — testimonials + Find Us cepat. */
+import { business } from '../data/business';
+import MapFacade from './MapFacade.astro';
+interface Quote { q: string; by: string; }
+interface Props { quotes: Quote[]; }
+const { quotes } = Astro.props;
+---
+<!-- Ref: Awwwards GEM maps integration (facade) + Themetags testimonials -->
+<section aria-label="Ulasan dan lokasi" class="max-w-6xl mx-auto px-4">
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+    <div class="md:col-span-6">
+      <p class="text-sm font-semibold text-orange-800">Kata pengunjung</p>
+      <h2 class="mt-2 text-3xl md:text-4xl tracking-tight leading-none font-extrabold">
+        Rating <span class="font-mono-num">{business.rating}</span> <span class="text-lg font-semibold text-stone-500">({business.reviewCount} ulasan)</span>
+      </h2>
+      <div class="mt-6 space-y-4">
+        {quotes.map((t) => (
+          <blockquote class="border border-orange-800/15 rounded-3xl p-5 sm:p-6 bg-white/60">
+            <p class="text-[15px] leading-relaxed">&ldquo;{t.q}&rdquo;</p>
+            <cite class="mt-2 block font-mono-num text-xs text-stone-500 not-italic">&mdash; {t.by}</cite>
+          </blockquote>
+        ))}
+      </div>
+      <p class="mt-3 text-xs text-stone-400">Kutipan ilustratif dari ulasan Google — ganti kutipan asli berizin.</p>
+    </div>
+    <div class="md:col-span-6">
+      <MapFacade />
+      <p class="mt-3 text-sm text-stone-600">{business.address}</p>
+      <p class="mt-1 font-mono-num text-sm font-semibold text-orange-800">{business.hours}</p>
+      <div class="mt-4 flex flex-col sm:flex-row gap-3">
+        <a href={business.mapsUrl} target="_blank" rel="noopener" class="flex-1 text-center border border-stone-300 px-6 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold hover:border-orange-800 hover:text-orange-800 active:scale-[0.97] transition">Buka di Google Maps</a>
+        <a href="/reservasi" class="flex-1 text-center bg-orange-800 text-orange-50 px-6 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold hover:-translate-y-0.5 active:scale-[0.97] transition">Reservasi meja</a>
+      </div>
+    </div>
+  </div>
+</section>

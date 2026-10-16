@@ -1,37 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { business, gallery } from '../data/business';
+import { business, gallery, waLink } from '../data/business';
 ---
-<BaseLayout title="Galeri OGI Cafe Jambi — Suasana Nongkrong Danau Sipin" description="Galeri OGI Cafe Jambi: interior cozy, area outdoor, menu andalan, dan spot foto. Ketuk tiap panel untuk membuka. Foto placeholder, ganti foto asli berizin." canonicalPath="/galeri">
-  <section class="max-w-6xl mx-auto px-4 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
-      <div class="md:col-span-8">
-        <p class="text-sm font-semibold text-orange-800">Galeri &bull; <span class="font-mono-num">{String(gallery.length).padStart(2, '0')} panel</span></p>
-        <h1 class="mt-2 text-4xl md:text-6xl tracking-tight leading-[1.02] font-extrabold">Buka panelnya, rasakan nongkrongnya</h1>
-        <p class="mt-3 text-base text-stone-600 max-w-[65ch]">Galeri vertikal: ketuk tiap judul untuk membuka fotonya. Foto placeholder (picsum seed) &mdash; ganti foto asli berizin sebelum launch. Referensi: <a class="underline underline-offset-4 decoration-orange-800" href={business.instagram} target="_blank" rel="noopener">Instagram @ogi.cafeneatery</a>.</p>
-      </div>
-      <div class="md:col-span-4">
-        <p class="font-mono-num text-xs text-stone-500 border border-orange-800/20 rounded-2xl p-4">Panel pertama terbuka otomatis. Sisanya menunggu diketuk &mdash; hemat scroll, hemat penasaran.</p>
-      </div>
-    </div>
-    <div class="mt-8 border-t-2 border-orange-800">
+<BaseLayout title="Galeri OGI Cafe Jambi — Suasana Nongkrong Danau Sipin" description="Galeri OGI Cafe Jambi: indoor cozy, outdoor, menu andalan, spot foto, area grup, parkir luas. Foto placeholder — ganti foto asli berizin." canonicalPath="/galeri">
+  <!-- Ref: galeri grid + caption; Themetags tanpa foto generik (caption jujur placeholder) -->
+  <section class="max-w-6xl mx-auto px-4 py-12 md:py-16">
+    <p class="text-sm font-semibold text-orange-800">Galeri &bull; <span class="font-mono-num">{String(gallery.length).padStart(2, '0')} foto</span></p>
+    <h1 class="mt-2 text-4xl md:text-6xl tracking-tight leading-[1.02] font-extrabold max-w-[18ch]">Suasana yang bikin betah</h1>
+    <p class="mt-3 text-base text-stone-600 max-w-[65ch]">Indoor, outdoor, menu andalan, dan area grup. Foto placeholder (picsum seed) — ganti foto asli berizin sebelum launch. Asliintip: <a class="underline underline-offset-4 decoration-orange-800" href={business.instagram} target="_blank" rel="noopener">Instagram @ogi.cafeneatery</a>.</p>
+    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
       {gallery.map((g, i) => (
-        <details class="acc border-b border-orange-800/15" open={i === 0 ? true : undefined}>
-          <summary class="cursor-pointer list-none flex items-center gap-4 py-5">
-            <span class="font-mono-num text-sm text-orange-800">{String(i + 1).padStart(2, '0')}</span>
-            <span class="font-bold text-lg tracking-tight flex-1">{g.alt}</span>
-            <span class="acc-plus text-orange-800 text-2xl leading-none font-light">+</span>
-          </summary>
-          <div class="acc-panel">
-            <div class="acc-inner">
-              <figure class="acc-img pb-6 md:pl-12">
-                <img src={`https://picsum.photos/seed/${g.seed}/1000/620`} alt={g.alt} width="1000" height="620" loading={i === 0 ? 'eager' : 'lazy'} class="w-full aspect-[16/10] object-cover rounded-3xl" />
-                <figcaption class="mt-2 text-sm text-stone-500">{g.caption}</figcaption>
-              </figure>
-            </div>
-          </div>
-        </details>
+        <figure class="min-w-0">
+          <img src={`https://picsum.photos/seed/${g.seed}/800/450`} srcset={`https://picsum.photos/seed/${g.seed}/400/225 400w, https://picsum.photos/seed/${g.seed}/800/450 800w`} sizes="(max-width: 640px) 100vw, 50vw" alt={g.alt} width="800" height="450" decoding="async" loading={i < 2 ? 'eager' : 'lazy'} class="w-full aspect-video object-cover rounded-3xl" />
+          <figcaption class="mt-2 text-sm text-stone-500">{g.caption}</figcaption>
+        </figure>
       ))}
+    </div>
+    <div class="mt-8 flex flex-col sm:flex-row gap-3">
+      <a href={waLink(`Halo ${business.name}, saya mau reservasi meja.`)} target="_blank" rel="noopener" class="flex-1 text-center bg-orange-800 text-orange-50 px-6 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold">Reservasi setelah lihat galeri</a>
+      <a href="/menu" class="flex-1 text-center border border-stone-300 px-6 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold hover:border-orange-800 hover:text-orange-800 transition">Lihat menunya</a>
     </div>
   </section>
 </BaseLayout>

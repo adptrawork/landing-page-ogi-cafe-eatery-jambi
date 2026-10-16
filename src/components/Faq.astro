@@ -1,0 +1,17 @@
+---
+/* Ref: Awwwards GEM — accordion aman 360px; FAQ: jam sibuk? parkir? grup besar? pembayaran? */
+interface Item { q: string; a: string; }
+interface Props { faqs: Item[]; accent?: string; }
+const { faqs } = Astro.props;
+---
+<div class="divide-y divide-orange-800/15 border-y border-orange-800/15">
+  {faqs.map((f) => (
+    <details class="py-4 group min-w-0">
+      <summary class="cursor-pointer font-semibold text-[15px] list-none flex justify-between items-center gap-4 min-h-[48px] min-w-0">
+        <span class="min-w-0 break-words">{f.q}</span>
+        <span class="text-orange-800 text-xl leading-none shrink-0 transition-transform duration-300 group-open:rotate-45" aria-hidden="true">+</span>
+      </summary>
+      <p class="mt-1 text-sm text-stone-600 leading-relaxed max-w-[65ch]">{f.a}</p>
+    </details>
+  ))}
+</div>

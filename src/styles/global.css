@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,7 +16,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.font-mono-num { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+/* PERF: angka pakai monospace sistem — tanpa webfont tambahan */
+.font-mono-num { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
 
 .reveal { animation: rise 0.7s var(--ease-premium) both; }
 @keyframes rise {
@@ -38,7 +37,7 @@ body {
   }
 }
 
-/* Ticker strip: transform-only marquee */
+/* Ticker strip: CSS-only marquee (transform only, aman 360px) */
 .ticker-track {
   display: flex;
   gap: 2.5rem;
@@ -50,45 +49,15 @@ body {
   to { transform: translateX(-50%); }
 }
 
-/* Horizontal snap row (mobile) -> masonry (desktop handled with md:columns-2) */
-.snap-row { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
-.snap-row > * { scroll-snap-align: start; }
-.snap-row::-webkit-scrollbar { height: 6px; }
-.snap-row::-webkit-scrollbar-thumb { background: #e7c9b8; border-radius: 999px; }
+/* Ref: Awwwards GEM on-hover dish preview — foto zoom + info */
+.dish .dish-img { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.dish:hover .dish-img { transform: scale(1.06); }
 
-/* Ripple ink: transform + opacity only, span removed on animationend */
-.btn-ripple { position: relative; overflow: hidden; isolation: isolate; }
-.ripple-ink {
-  position: absolute;
-  left: 0;
-  top: 0;
-  border-radius: 9999px;
-  background: #fff;
-  opacity: 0.35;
-  pointer-events: none;
-  transform: translate(var(--rx, 0px), var(--ry, 0px)) scale(0);
-  animation: ripple 0.6s ease-out forwards;
-}
-@keyframes ripple {
-  to { transform: translate(var(--rx, 0px), var(--ry, 0px)) scale(1); opacity: 0; }
-}
-
-/* Vertical accordion slider: grid-rows + transform/opacity */
-.acc-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.5s var(--ease-premium);
-}
-details.acc[open] .acc-panel { grid-template-rows: 1fr; }
-.acc-inner { overflow: hidden; }
-.acc-img { opacity: 0; transform: translateY(14px) scale(0.99); transition: opacity 0.5s var(--ease-premium), transform 0.5s var(--ease-premium); }
-details.acc[open] .acc-img { opacity: 1; transform: translateY(0) scale(1); }
-.acc-plus { transition: transform 0.4s var(--ease-premium); }
-details.acc[open] .acc-plus { transform: rotate(45deg); }
+/* Ref: skeleton untuk menu (shimmer via background-position) */
+.skel-block { background: linear-gradient(100deg, rgba(154,52,18,0.08) 40%, rgba(154,52,18,0.18) 50%, rgba(154,52,18,0.08) 60%); background-size: 200% 100%; animation: skel 1.2s linear infinite; }
+@keyframes skel { from { background-position: 180% 0; } to { background-position: -20% 0; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .ticker-track, .ripple-ink { animation: none; }
-  .acc-panel, .acc-img, .acc-plus { transition: none; }
-  details.acc .acc-img { opacity: 1; transform: none; }
+  .reveal, .ticker-track, .skel-block { animation: none; }
   html { scroll-behavior: auto; }
 }
