@@ -7,6 +7,30 @@ interface Props {
 }
 const { title, description, canonicalUrl, image = '/default-og.jpg' } = Astro.props;
 const ogImage = new URL(image, Astro.site ?? Astro.url).toString();
+const restaurantLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
+  name: 'OGI Cafe and Eatery',
+  url: 'https://ogicafe-jambi.pages.dev',
+  image: ogImage,
+  description: description,
+  servesCuisine: ['Indonesian', 'Western', 'Japanese'],
+  priceRange: 'Rp50000-Rp75000',
+  telephone: '+62-822-8052-3250',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Jl. Empu Sendok No.54, Solok Sipin, Danau Sipin',
+    addressLocality: 'Kota Jambi',
+    addressRegion: 'Jambi',
+    postalCode: '36124',
+    addressCountry: 'ID',
+  },
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Sunday'], opens: '11:00', closes: '21:30' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Friday', 'Saturday'], opens: '11:00', closes: '22:30' },
+  ],
+  aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', reviewCount: '670' },
+};
 ---
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -27,15 +51,9 @@ const ogImage = new URL(image, Astro.site ?? Astro.url).toString();
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={ogImage} />
-<script type="application/ld+json" set:html={JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "Restaurant",
-  name: "OGI Cafe and Eatery",
-  url: "https://ogicafe-jambi.pages.dev",
-  image: ogImage,
-  description: description,
-  address: { "@type": "PostalAddress", addressLocality: "Kota Jambi", addressRegion: "Jambi", addressCountry: "ID" },
-  telephone: "+62-812-3456-7890",
-  openingHours: "Mo-Sa 09:00-21:00",
-  aggregateRating: { "@type": "AggregateRating", ratingValue: "4.8", reviewCount: "120" }
-})} />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link
+  href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk[400,500,700,800]&display=swap"
+  rel="stylesheet"
+/>
+<script type="application/ld+json" set:html={JSON.stringify(restaurantLd)} />
