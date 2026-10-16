@@ -1,0 +1,41 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl: string;
+  image?: string;
+}
+const { title, description, canonicalUrl, image = '/default-og.jpg' } = Astro.props;
+const ogImage = new URL(image, Astro.site ?? Astro.url).toString();
+---
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="generator" content={Astro.generator} />
+<link rel="canonical" href={canonicalUrl} />
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta name="robots" content="index, follow" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalUrl} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={ogImage} />
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  name: "OGI Cafe and Eatery",
+  url: "https://ogicafe-jambi.pages.dev",
+  image: ogImage,
+  description: description,
+  address: { "@type": "PostalAddress", addressLocality: "Kota Jambi", addressRegion: "Jambi", addressCountry: "ID" },
+  telephone: "+62-812-3456-7890",
+  openingHours: "Mo-Sa 09:00-21:00",
+  aggregateRating: { "@type": "AggregateRating", ratingValue: "4.8", reviewCount: "120" }
+})} />

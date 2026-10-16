@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ogicafe-jambi.pages.dev/sitemap-index.xml

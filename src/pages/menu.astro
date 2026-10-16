@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { business, menuGroups, waLink } from '../data/business';
+---
+<BaseLayout title={`E-Menu ${business.name} — Harga & Favorit`} description={`E-menu ${business.name} Jambi: Chicken Katsu Don, Quesadilla, Matcha Latte. Harga estimasi, konfirmasi via WA ${business.phone}.`} canonicalPath="/menu">
+  <section class="max-w-7xl mx-auto px-4 py-12">
+    <p class="text-sm font-medium text-rose-700">E-Menu</p>
+    <h1 class="mt-2 text-4xl md:text-6xl tracking-tighter leading-none font-bold">Menu {business.name}</h1>
+    <p class="mt-3 text-base text-gray-600 max-w-[65ch]">Label <strong>Teruji</strong> = nama item disebut di review. Label <strong>Estimasi</strong> = harga realistis Jambi, wajib konfirmasi via WA sebelum pesan.</p>
+    {menuGroups.map((g) => (
+      <div class="mt-10">
+        <h2 class="text-2xl font-bold tracking-tight">{g.category}</h2>
+        <div class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {g.items.map((m, i) => (
+            <article class={i % 2 === 1 ? 'md:mt-10' : ''}>
+              <div class="bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
+                <img src={`https://picsum.photos/seed/ogi-${m.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}/800/600`} alt={m.name} width="800" height="600" loading="lazy" class="w-full aspect-[16/9] object-cover" />
+                <div class="p-7">
+                  <p class="text-xs font-medium text-rose-700">{m.badge} — {m.desc}</p>
+                  <h3 class="mt-1 font-semibold text-lg">{m.name}</h3>
+                  <div class="mt-3 flex items-center justify-between">
+                    <p class="font-mono-num font-semibold">{m.price}</p>
+                    <a href={waLink(`Halo ${business.name}, saya mau pesan ${m.name} (${m.price}). Apakah tersedia?`)} class="bg-zinc-950 text-white px-5 py-2.5 rounded-full text-sm">Pesan via WA</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+</BaseLayout>
