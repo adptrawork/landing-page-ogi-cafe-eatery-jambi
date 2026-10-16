@@ -1,12 +1,13 @@
 ---
-// Ref: Awwwards GEM maps integration — FACADE: preview + tombol, iframe disuntik hanya saat diklik.
+// Ref: peta facade — preview + tombol, iframe Google Maps disuntik hanya saat diklik (tanpa iframe langsung).
 import { business } from '../data/business';
 ---
-<div class="mapfacade rounded-3xl overflow-hidden border border-orange-800/15 bg-orange-800/5" data-embed={business.mapsEmbed} data-title={`Peta ${business.name}`}>
-  <div class="aspect-[4/3] flex flex-col items-center justify-center gap-3 p-6 text-center">
-    <p class="font-bold text-[15px]">Peta dimuat sesuai permintaan</p>
-    <p class="text-sm text-stone-500 max-w-[40ch]">{business.address}</p>
-    <button type="button" data-loadmap class="bg-orange-800 text-orange-50 px-6 py-3 min-h-[48px] rounded-full text-sm font-semibold hover:-translate-y-0.5 active:scale-[0.97] transition">Muat peta interaktif</button>
-    <a href={business.mapsUrl} target="_blank" rel="noopener" class="text-sm underline underline-offset-4 decoration-orange-800">Buka di Google Maps</a>
+<div class="mapfacade rounded-3xl overflow-hidden border border-olive/30 bg-paper-2" data-embed={business.mapsEmbed} data-title={`Peta ${business.name}`}>
+  <div class="aspect-[4/3] grid place-content-center gap-3 p-6 text-center">
+    <svg class="mx-auto text-olive" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.4 7-11a7 7 0 1 0-14 0c0 4.6 7 11 7 11Z" /><circle cx="12" cy="10" r="2.5" /></svg>
+    <p class="font-display text-lg font-semibold">Peta dimuat sesuai permintaan</p>
+    <p class="text-sm text-ink-muted max-w-[40ch] mx-auto">{business.address}</p>
+    <button type="button" data-loadmap class="mt-1 bg-accent text-paper px-6 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold hover:opacity-90 active:scale-[0.98] transition">Muat peta interaktif</button>
+    <a href={business.mapsUrl} target="_blank" rel="noopener" class="text-sm text-accent underline underline-offset-4 decoration-accent/40">Buka di Google Maps</a>
   </div>
 </div>

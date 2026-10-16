@@ -1,0 +1,86 @@
+---
+/* Ref: menu journal/food editorial — filter kategori interaktif + daftar menu dua kolom seperti menu cetak.
+   Tanpa JS: semua item tetap tampil (filter hanya penyaring progresif). */
+import DishCard from './DishCard.astro';
+import { business, waLink } from '../data/business';
+interface Item { name: string; price: string; badge: string; desc: string; seed: string; cat: string; }
+interface Props { items: Item[]; }
+const { items } = Astro.props;
+const cats = [
+  { id: 'all', label: 'Semua' },
+  { id: 'makanan', label: 'Makanan' },
+  { id: 'minuman', label: 'Minuman' },
+  { id: 'kopi', label: 'Kopi' },
+  { id: 'dessert', label: 'Dessert' },
+];
+const total = items.length;
+---
+<div id="menu-journal">
+  <!-- Ref: filter kategori interaktif — <button aria-pressed>, berfungsi tanpa JS (semua item default tampil) -->
+  <div role="group" aria-label="Filter kategori menu" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5">
+    {cats.map((c) => (
+      <button
+        type="button"
+        data-filter={c.id}
+        aria-pressed={c.id === 'all' ? 'true' : 'false'}
+        class="menu-filter min-h-[48px] px-4 rounded-full border border-olive/40 text-sm font-semibold text-ink/80 bg-paper hover:border-accent hover:text-accent active:scale-[0.98] transition"
+      >{c.label}</button>
+    ))}
+  </div>
+
+  <div class="mt-5 flex items-baseline justify-between gap-4 border-t-2 border-ink/80 pt-3">
+    <p id="menu-status" aria-live="polite" class="font-mono-num text-sm text-ink-muted">{total} item ditampilkan</p>
+    <p class="text-sm text-ink-muted">Teruji = disebut di review &middot; Estimasi = konfirmasi via WA</p>
+  </div>
+
+  <!-- Ref: daftar menu dua kolom (kiri/kanan seperti menu cetak), dipisah rule, bukan grid 3 kartu -->
+  <div id="menu-list" class="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-20">
+    {items.map((m, i) => (
+      <DishCard
+        name={m.name}
+        price={m.price}
+        badge={m.badge}
+        desc={m.desc}
+        seed={m.seed}
+        cat={m.cat}
+        index={i}
+        eager={i === 0}
+        waHref={waLink(`Halo ${business.name}, saya mau pesan ${m.name} (${m.price}). Apakah tersedia?`)}
+      />
+    ))}
+  </div>
+
+  <!-- Ref: state kosong (muncul hanya saat filter tidak menghasilkan item) -->
+  <p id="menu-empty" hidden class="mt-8 border border-dashed border-olive/40 rounded-3xl px-6 py-10 text-center text-ink-muted">
+    Tidak ada item pada kategori ini. Coba kategori lain, atau
+    <a href={waLink(`Halo ${business.name}, saya mau tanya menu lengkap hari ini.`)} target="_blank" rel="noopener" class="text-accent underline underline-offset-4 decoration-accent/40 font-semibold">tanya menu hari ini via WA</a>.
+  </p>
+</div>
+<script is:inline>
+  (function () {
+    var root = document.getElementById('menu-journal');
+    if (!root) return;
+    var btns = root.querySelectorAll('[data-filter]');
+    var items = root.querySelectorAll('[data-cat]');
+    var list = document.getElementById('menu-list');
+    var status = document.getElementById('menu-status');
+    var empty = document.getElementById('menu-empty');
+    function apply(f) {
+      var n = 0;
+      for (var i = 0; i < items.length; i++) {
+        var ok = f === 'all' || items[i].getAttribute('data-cat') === f;
+        items[i].hidden = !ok;
+        if (ok) n++;
+      }
+      for (var j = 0; j < btns.length; j++) {
+        btns[j].setAttribute('aria-pressed', btns[j].getAttribute('data-filter') === f ? 'true' : 'false');
+      }
+      if (status) status.textContent = n + ' item ditampilkan';
+      if (list) list.hidden = n === 0;
+      if (empty) empty.hidden = n !== 0;
+    }
+    for (var k = 0; k < btns.length; k++) {
+      btns[k].addEventListener('click', function () { apply(this.getAttribute('data-filter')); });
+    }
+  })();
+</script>

@@ -5,7 +5,7 @@ interface Props {
   canonicalUrl: string;
   image?: string;
 }
-const { title, description, canonicalUrl, image = '/default-og.jpg' } = Astro.props;
+const { title, description, canonicalUrl, image = '/images/ogi-suasa-1.jpg' } = Astro.props;
 const ogImage = new URL(image, Astro.site ?? Astro.url).toString();
 const restaurantLd = {
   '@context': 'https://schema.org',
@@ -31,10 +31,17 @@ const restaurantLd = {
   ],
   aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', reviewCount: '670' },
 };
+const fontHref =
+  'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Instrument+Sans:wght@400;500;600&display=swap';
 ---
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<!-- PERF: font non-blocking — preconnect + display=swap, tanpa @import -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href={fontHref} media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href={fontHref} /></noscript>
 <meta name="generator" content={Astro.generator} />
 <link rel="canonical" href={canonicalUrl} />
 <title>{title}</title>
@@ -42,19 +49,16 @@ const restaurantLd = {
 <meta name="description" content={description} />
 <meta name="robots" content="index, follow" />
 <meta property="og:type" content="website" />
+<meta property="og:locale" content="id_ID" />
+<meta property="og:site_name" content="OGI Cafe and Eatery — Danau Sipin Jambi" />
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
+<meta property="og:image:alt" content="Ilustrasi suasana makan di kafe, bukan foto lokasi OGI Cafe" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={canonicalUrl} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={ogImage} />
-<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-<!-- PERF: Cabinet Grotesk max 3 weights + display=swap, tanpa @import -->
-<link
-  href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk[500,700,800]&display=swap"
-  rel="stylesheet"
-/>
 <script type="application/ld+json" set:html={JSON.stringify(restaurantLd)} />

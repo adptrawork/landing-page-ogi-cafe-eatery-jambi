@@ -11,83 +11,82 @@ const path = Astro.url.pathname;
 const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
 const linkCls = (h: string) =>
   active(h)
-    ? 'text-orange-800 font-semibold underline underline-offset-8 decoration-2'
-    : 'hover:text-orange-800 transition';
-const ticker = ['Chicken Katsu Don', 'Matcha Latte', 'Board Games', 'Parkir Luas', 'Spot Foto', 'Nongkrong Danau Sipin', 'Kopi Susu Gula Aren'];
+    ? 'text-accent font-semibold'
+    : 'text-ink/75 hover:text-accent transition-colors';
+const nav = [
+  { href: '/', label: 'Beranda' },
+  { href: '/menu', label: 'Menu' },
+  { href: '/reservasi', label: 'Reservasi' },
+  { href: '/galeri', label: 'Galeri' },
+];
 ---
 <!doctype html>
 <html lang="id">
 <head>
   <BaseHead title={title} description={description} canonicalUrl={canonicalUrl} image={image} />
 </head>
-<body class="antialiased">
-  <!-- Ref: Plerdy 2025 — info lokasi di ATAS (topbar): alamat + jam + WA -->
-  <div class="bg-orange-800 text-orange-50 text-xs">
-    <p class="max-w-6xl mx-auto px-4 py-2 truncate">Jl. Empu Sendok No.54, Danau Sipin &bull; {business.hours} &bull; WA 0822-8052-3250</p>
+<body class="bg-paper text-ink antialiased">
+  <a class="skip-link" href="#main">Lompat ke konten utama</a>
+  <!-- Ref: NAP konsisten (alamat/jam/WA) — satu sumber kebenaran di business.ts -->
+  <div class="bg-paper-2 text-ink border-b border-olive/25 text-xs">
+    <p class="max-w-6xl mx-auto px-4 py-2 leading-relaxed">Jl. Empu Sendok No.54, Danau Sipin &middot; {business.hours} &middot; WA 0822-8052-3250</p>
   </div>
-  <header class="sticky top-0 z-40 bg-[#faf6f1]/90 backdrop-blur-xl border-b border-orange-800/15">
-    <nav class="max-w-6xl mx-auto flex items-center justify-between gap-3 px-4 py-3" aria-label="Navigasi utama">
-      <a href="/" class="leading-none min-w-0">
-        <span class="block font-extrabold tracking-tight text-xl">OGI</span>
-        <span class="block text-[11px] font-medium tracking-[0.18em] uppercase text-orange-800">Cafe &bull; Danau Sipin</span>
+  <header class="sticky top-0 z-40 bg-paper/90 backdrop-blur-md border-b border-olive/25">
+    <nav class="max-w-6xl mx-auto grid grid-cols-[1fr_auto] md:grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-3" aria-label="Navigasi utama">
+      <a href="/" class="min-w-0 group">
+        <span class="block font-display text-2xl leading-none font-semibold tracking-tight">OGI</span>
+        <span class="block mt-0.5 text-[11px] font-medium tracking-[0.2em] uppercase text-olive">Cafe &amp; Eatery &middot; Danau Sipin</span>
       </a>
-      <div class="hidden md:flex gap-6 text-sm text-stone-600">
-        <a href="/" class={linkCls('/')}>Beranda</a>
-        <a href="/menu" class={linkCls('/menu')}>Menu</a>
-        <a href="/reservasi" class={linkCls('/reservasi')}>Reservasi</a>
-        <a href="/galeri" class={linkCls('/galeri')}>Galeri</a>
+      <div class="hidden md:flex justify-center gap-7 text-[15px]">
+        {nav.map((n) => (<a href={n.href} class={linkCls(n.href)} aria-current={active(n.href) ? 'page' : undefined}>{n.label}</a>))}
       </div>
-      <div class="flex items-center gap-2">
-        <a href={cta} target="_blank" rel="noopener" class="hidden sm:inline-block bg-orange-800 text-orange-50 px-5 py-2.5 min-h-[48px] inline-flex items-center rounded-full text-sm font-semibold hover:-translate-y-0.5 active:scale-[0.97] transition">Reservasi Meja</a>
-        <!-- Hamburger 48px, aman 360px -->
-        <button id="burger" type="button" class="md:hidden inline-flex items-center justify-center w-12 h-12 min-w-[48px] min-h-[48px] rounded-full border border-orange-800/25" aria-expanded="false" aria-controls="mnav" aria-label="Buka menu navigasi">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <div class="flex items-center justify-end gap-2">
+        <a href={cta} target="_blank" rel="noopener" class="hidden sm:inline-flex bg-accent text-paper px-5 py-3 min-h-[44px] items-center rounded-full text-sm font-semibold hover:opacity-90 active:scale-[0.98] transition">Reservasi meja</a>
+        <!-- Hamburger 44px, aman 360px -->
+        <button id="burger" type="button" class="md:hidden inline-flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border border-olive/40 text-ink" aria-expanded="false" aria-controls="mnav" aria-label="Buka menu navigasi">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
         </button>
       </div>
     </nav>
-    <nav id="mnav" class="md:hidden hidden border-t border-orange-800/10" aria-label="Navigasi seluler">
-      <div class="max-w-6xl mx-auto flex flex-col px-4 py-2 text-[15px] text-stone-700">
-        <a href="/" class="py-3 min-h-[48px] inline-flex items-center border-b border-orange-800/10">Beranda</a>
-        <a href="/menu" class="py-3 min-h-[48px] inline-flex items-center border-b border-orange-800/10">Menu</a>
-        <a href="/reservasi" class="py-3 min-h-[48px] inline-flex items-center border-b border-orange-800/10">Reservasi</a>
-        <a href="/galeri" class="py-3 min-h-[48px] inline-flex items-center border-b border-orange-800/10">Galeri</a>
-        <a href={cta} target="_blank" rel="noopener" class="my-3 bg-orange-800 text-orange-50 px-5 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold">Reservasi Meja</a>
+    <nav id="mnav" class="md:hidden hidden border-t border-olive/25 bg-paper" aria-label="Navigasi seluler">
+      <div class="max-w-6xl mx-auto grid px-4 py-2 text-[15px]">
+        {nav.map((n) => (
+          <a href={n.href} class={`py-3 min-h-[48px] inline-flex items-center border-b border-olive/20 ${active(n.href) ? 'text-accent font-semibold' : 'text-ink/80'}`} aria-current={active(n.href) ? 'page' : undefined}>{n.label}</a>
+        ))}
+        <a href={cta} target="_blank" rel="noopener" class="my-3 bg-accent text-paper px-5 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold">Reservasi meja</a>
       </div>
     </nav>
   </header>
-  <!-- Ref: Awwwards GEM — marquee strip aman 360px (overflow-hidden) -->
-  <div class="border-b border-orange-800/15 bg-orange-800/[0.06] overflow-hidden" aria-hidden="true">
-    <div class="ticker-track py-2 text-xs font-semibold tracking-[0.16em] uppercase text-orange-800 max-w-full">
-      {[...ticker, ...ticker].map((t) => (<span class="whitespace-nowrap shrink-0">{t} &nbsp;&mdash;</span>))}
-    </div>
-  </div>
-  <main><slot /></main>
-  <!-- Ref: Plerdy 2025 — info lokasi di BAWAH (footer): alamat + jam + kontak -->
-  <footer id="kontak" class="mt-20 border-t border-orange-800/15 bg-[#f3ebe2]">
+  <main id="main"><slot /></main>
+  <!-- Ref: NAP ringkas + atribusi gambar (sumber Wikimedia Commons dicatat di README) -->
+  <footer class="mt-16 md:mt-24 border-t border-olive/25 bg-paper-2">
     <div class="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-12 gap-8">
       <div class="md:col-span-8 min-w-0">
-        <p class="font-extrabold tracking-tight text-lg">OGI Cafe and Eatery</p>
-        <p class="mt-2 text-base text-stone-600 leading-relaxed max-w-[65ch]">{business.address} &mdash; {business.hours}</p>
-        <p class="mt-2 text-sm text-stone-500">Basecamp nongkrong anak muda Danau Sipin: reservasi via WhatsApp, rute via Google Maps.</p>
-        <div class="mt-4 flex flex-wrap gap-3 text-sm">
-          <a href="/menu" class="underline underline-offset-4 decoration-orange-800 min-h-[48px] inline-flex items-center">E-Menu</a>
-          <a href="/reservasi" class="underline underline-offset-4 decoration-orange-800 min-h-[48px] inline-flex items-center">Reservasi</a>
-          <a href="/galeri" class="underline underline-offset-4 decoration-orange-800 min-h-[48px] inline-flex items-center">Galeri</a>
+        <p class="font-display text-2xl font-semibold tracking-tight">OGI Cafe and Eatery</p>
+        <p class="mt-3 text-[15px] leading-relaxed max-w-[65ch] text-ink">{business.address}</p>
+        <p class="mt-1 text-[15px] leading-relaxed text-ink-muted">{business.hours} &middot; {business.priceRange}</p>
+        <div class="mt-5 grid sm:flex gap-x-5 gap-y-1 text-sm">
+          <a href="/menu" class="text-accent underline underline-offset-4 decoration-accent/50 min-h-[44px] inline-flex items-center">E-Menu</a>
+          <a href="/reservasi" class="text-accent underline underline-offset-4 decoration-accent/50 min-h-[44px] inline-flex items-center">Reservasi</a>
+          <a href="/galeri" class="text-accent underline underline-offset-4 decoration-accent/50 min-h-[44px] inline-flex items-center">Galeri</a>
         </div>
+        <p class="mt-6 text-xs leading-relaxed text-ink-muted max-w-[70ch]">
+          Kredit gambar: suasana &amp; foto menu dari <a href="https://commons.wikimedia.org" target="_blank" rel="noopener" class="underline underline-offset-2">Wikimedia Commons</a> (CC BY / CC BY-SA / Public domain) — ilustrasi, bukan foto lokasi OGI. Daftar lengkap di README repositori.
+        </p>
       </div>
       <div class="md:col-span-4">
-        <p class="font-semibold text-sm">Hubungi</p>
-        <div class="mt-3 flex flex-col gap-2 text-sm">
-          <a href={cta} target="_blank" rel="noopener" class="underline underline-offset-4 min-h-[48px] inline-flex items-center">WhatsApp 0822-8052-3250</a>
-          <a href={business.mapsUrl} target="_blank" rel="noopener" class="underline underline-offset-4">Google Maps &mdash; rute ke lokasi</a>
-          <a href={business.instagram} target="_blank" rel="noopener" class="underline underline-offset-4">Instagram @ogi.cafeneatery</a>
+        <p class="text-[11px] font-semibold tracking-[0.18em] uppercase text-olive">Hubungi</p>
+        <div class="mt-4 grid gap-2 text-sm">
+          <a href={cta} target="_blank" rel="noopener" class="text-ink underline underline-offset-4 decoration-olive/50 min-h-[44px] inline-flex items-center">WhatsApp 0822-8052-3250</a>
+          <a href={business.mapsUrl} target="_blank" rel="noopener" class="text-ink underline underline-offset-4 decoration-olive/50 min-h-[44px] inline-flex items-center">Google Maps &mdash; rute ke lokasi</a>
+          <a href={business.instagram} target="_blank" rel="noopener" class="text-ink underline underline-offset-4 decoration-olive/50 min-h-[44px] inline-flex items-center">Instagram @ogi.cafeneatery</a>
         </div>
-        <p class="mt-6 text-xs text-stone-400">&copy; 2026 OGI Cafe and Eatery &mdash; Kota Jambi.</p>
+        <p class="mt-6 text-xs text-ink-muted">&copy; 2026 OGI Cafe and Eatery &mdash; Kota Jambi.</p>
       </div>
     </div>
   </footer>
   <script is:inline>
-    /* JS DIET: hanya toggle nav + maps facade (tanpa DOMContentLoaded, <5KB) */
+    /* JS DIET: toggle nav + maps facade saja (vanilla, tanpa dependency) */
     (function () {
       var b = document.getElementById('burger');
       var n = document.getElementById('mnav');

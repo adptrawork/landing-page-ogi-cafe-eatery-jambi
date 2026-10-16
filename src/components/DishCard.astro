@@ -1,6 +1,7 @@
 ---
-/* Ref: Awwwards GEM — on-hover dish preview (foto zoom + info); Ref: Themetags — menu highlight visual, tanpa foto generik (foto asli/seed per item). */
-/* PERF: img lokal — decoding async; highlight pertama eager+fetchpriority, sisanya lazy. */
+/* Ref: menu journal/food editorial — baris menu dua kolom seperti menu cetak (rule + leader titik + harga).
+   Foto menu lokal (Wikimedia Commons, lisensi bebas — lihat README tabel Sumber Gambar). */
+/* PERF: img lokal — decoding async; item pertama eager+fetchpriority, sisanya lazy. */
 interface Props {
   name: string;
   price: string;
@@ -8,10 +9,11 @@ interface Props {
   desc: string;
   seed: string;
   waHref: string;
+  cat: string;
+  index?: number;
   eager?: boolean;
 }
-const { name, price, badge, desc, seed, waHref, eager = false } = Astro.props;
-/* Foto menu lokal (Wikimedia Commons, bebas lisensi — lihat README tabel Sumber Gambar). */
+const { name, price, badge, desc, seed, waHref, cat, index = 0, eager = false } = Astro.props;
 const dims: Record<string, [number, number]> = {
   'ogi-chicken-katsu-don': [800, 532],
   'ogi-chicken-quesadilla': [800, 600],
@@ -26,19 +28,28 @@ const dims: Record<string, [number, number]> = {
 };
 const localSrc = `/images/${seed}.jpg`;
 const [imgW, imgH] = dims[seed] ?? [800, 450];
+const teruji = badge === 'Teruji';
+const badgeCls = teruji
+  ? 'bg-accent text-paper'
+  : 'border border-olive/50 text-olive';
 ---
-<article class="dish group border border-orange-800/15 rounded-3xl overflow-hidden bg-white/60 flex flex-col">
-  <div class="relative overflow-hidden">
-    <img src={localSrc} alt={name} width={imgW} height={imgH} decoding="async" loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} class="dish-img w-full aspect-video object-cover" />
-    <span class="absolute left-3 top-3 text-[11px] font-bold tracking-wide uppercase bg-[#faf6f1]/95 text-orange-800 border border-orange-800/25 rounded-full px-3 py-1">{badge}</span>
-    <span class="absolute right-3 bottom-3 font-mono-num text-xs font-semibold bg-stone-900/80 text-white rounded-full px-3 py-1.5 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">Lihat detail →</span>
+<article class="dish group grid grid-cols-[84px_1fr] sm:grid-cols-[104px_1fr] gap-4 sm:gap-5 border-t border-olive/30 py-6 min-w-0" data-cat={cat} style={`--i:${index}`}>
+  <div class="overflow-hidden rounded-2xl bg-paper-2 self-start">
+    <img src={localSrc} alt={name} width={imgW} height={imgH} decoding="async" loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} class="dish-img w-full h-[84px] sm:h-[104px] object-cover" />
   </div>
-  <div class="p-5 sm:p-6 flex flex-col flex-1">
-    <h3 class="font-bold text-lg tracking-tight leading-snug">{name}</h3>
-    <p class="mt-1 text-sm text-stone-500">{desc}</p>
-    <div class="mt-4 pt-4 border-t border-orange-800/10 flex items-center justify-between gap-3 mt-auto">
-      <p class="font-mono-num font-semibold text-orange-800 whitespace-nowrap">{price}</p>
-      <a href={waHref} target="_blank" rel="noopener" class="border border-orange-800 text-orange-800 px-5 py-2.5 min-h-[48px] inline-flex items-center rounded-full text-sm font-semibold hover:bg-orange-800 hover:text-orange-50 active:scale-[0.97] transition">Pesan via WA</a>
+  <div class="min-w-0">
+    <div class="grid grid-cols-[auto_1fr_auto] items-end gap-x-3">
+      <h3 class="font-display text-base sm:text-lg font-semibold leading-snug tracking-tight">{name}</h3>
+      <span class="leader" aria-hidden="true"></span>
+      <p class="font-mono-num text-sm sm:text-base font-semibold text-accent whitespace-nowrap">{price}</p>
+    </div>
+    <p class="mt-1.5 text-sm leading-relaxed text-ink/75">{desc}</p>
+    <div class="mt-3 flex flex-wrap items-center gap-3">
+      <span class={`text-[11px] font-semibold tracking-wide uppercase rounded-full px-3 py-1 ${badgeCls}`}>{badge}</span>
+      <a href={waHref} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-sm font-semibold text-accent underline underline-offset-4 decoration-accent/40 hover:decoration-accent min-h-[44px] active:scale-[0.98] transition-transform">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5.2A8.5 8.5 0 1 1 21 11.5Z" /><path d="M8.5 9.5c0 3 2 5 5 5" /></svg>
+        Pesan via WA
+      </a>
     </div>
   </div>
 </article>

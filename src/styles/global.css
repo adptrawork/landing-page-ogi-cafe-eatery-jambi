@@ -2,62 +2,112 @@
 @tailwind components;
 @tailwind utilities;
 
+/* OGI Cafe & Eatery — "Mediterranean menu journal"
+   Palet: paper/ink/olive + satu accent terracotta. Font: Fraunces + Instrument Sans. */
 :root {
-  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
-  --ogi: #9a3412;
+  --paper: #F7F2E8;
+  --paper-2: #E5D9C6;
+  --ink: #2D3528;
+  --ink-soft: rgba(45,53,40,.62);
+  --ink-muted: #5B6350;
+  --olive: #586844;
+  --accent: #99482F;
+  --ease-journal: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Cabinet Grotesk', 'Segoe UI', ui-sans-serif, system-ui, sans-serif;
-  background: #faf6f1;
-  color: #292524;
+  font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* PERF: angka pakai monospace sistem — tanpa webfont tambahan */
-.font-mono-num { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+/* Display type hidup di Fraunces (opsz variable) */
+h1, h2, h3, .font-display { font-family: 'Fraunces', Georgia, serif; }
+h1, h2 { font-variation-settings: 'SOFT' 40, 'WONK' 0; }
 
-.reveal { animation: rise 0.7s var(--ease-premium) both; }
+/* Angka/etiket teknis pakai tabular figures sistem */
+.font-mono-num {
+  font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* Skip-link (aksesibilitas keyboard) */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 60;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  font-weight: 600;
+  transition: top 0.2s var(--ease-journal);
+}
+.skip-link:focus { top: 0.75rem; }
+
+/* Fokus keyboard jelas di seluruh situs */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.35rem;
+}
+
+/* Animasi masuk: transform + opacity saja, stagger via --i */
+.reveal {
+  animation: rise 0.7s var(--ease-journal) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
 @keyframes rise {
-  from { opacity: 0; transform: translateY(18px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Hero photo fade into paper background */
+/* Foto hero editorial: melebur ke paper (mask, tanpa glow/gradien warna) */
 .photo-fade {
-  -webkit-mask-image: linear-gradient(to right, black 78%, transparent 100%);
-  mask-image: linear-gradient(to right, black 78%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 76%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 76%, transparent 100%);
 }
 @media (max-width: 767px) {
   .photo-fade {
-    -webkit-mask-image: linear-gradient(to bottom, black 82%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 82%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
   }
 }
 
-/* Ticker strip: CSS-only marquee (transform only, aman 360px) */
-.ticker-track {
-  display: flex;
-  gap: 2.5rem;
-  width: max-content;
-  animation: ticker 28s linear infinite;
+/* Filter kategori: state terpilih (aria-pressed) deterministik, tanpa bergantung urutan utility */
+.menu-filter[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
 }
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+.menu-filter[aria-pressed="true"]:hover { color: var(--paper); }
+
+/* Baris menu bergaya menu cetak: leader titik + foto zoom halus */
+.dish .dish-img { transition: transform 0.6s var(--ease-journal); }
+.dish:hover .dish-img { transform: scale(1.05); }
+.leader {
+  border-bottom: 1px dotted rgba(88,104,68,.55);
+  transform: translateY(-0.35rem);
 }
-
-/* Ref: Awwwards GEM on-hover dish preview — foto zoom + info */
-.dish .dish-img { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-.dish:hover .dish-img { transform: scale(1.06); }
-
-/* Ref: skeleton untuk menu (shimmer via background-position) */
-.skel-block { background: linear-gradient(100deg, rgba(154,52,18,0.08) 40%, rgba(154,52,18,0.18) 50%, rgba(154,52,18,0.08) 60%); background-size: 200% 100%; animation: skel 1.2s linear infinite; }
-@keyframes skel { from { background-position: 180% 0; } to { background-position: -20% 0; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .ticker-track, .skel-block { animation: none; }
+  .reveal { animation: none; }
   html { scroll-behavior: auto; }
+  .dish .dish-img,
+  .dish:hover .dish-img { transition: none; transform: none; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

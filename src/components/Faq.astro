@@ -1,17 +1,17 @@
 ---
-/* Ref: Awwwards GEM — accordion aman 360px; FAQ: jam sibuk? parkir? grup besar? pembayaran? */
+/* Ref: menu journal — FAQ accordion ber-rule, aksen ikon plus yang berputar (transform only). */
 interface Item { q: string; a: string; }
-interface Props { faqs: Item[]; accent?: string; }
+interface Props { faqs: Item[]; }
 const { faqs } = Astro.props;
 ---
-<div class="divide-y divide-orange-800/15 border-y border-orange-800/15">
+<div class="divide-y divide-olive/25 border-y border-olive/30">
   {faqs.map((f) => (
     <details class="py-4 group min-w-0">
-      <summary class="cursor-pointer font-semibold text-[15px] list-none flex justify-between items-center gap-4 min-h-[48px] min-w-0">
+      <summary class="cursor-pointer font-semibold text-[15px] list-none grid grid-cols-[1fr_auto] items-center gap-4 min-h-[48px] min-w-0">
         <span class="min-w-0 break-words">{f.q}</span>
-        <span class="text-orange-800 text-xl leading-none shrink-0 transition-transform duration-300 group-open:rotate-45" aria-hidden="true">+</span>
+        <svg class="text-accent shrink-0 transition-transform duration-300 group-open:rotate-45" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
       </summary>
-      <p class="mt-1 text-sm text-stone-600 leading-relaxed max-w-[65ch]">{f.a}</p>
+      <p class="mt-1 text-sm leading-relaxed text-ink/75 max-w-[65ch]">{f.a}</p>
     </details>
   ))}
 </div>

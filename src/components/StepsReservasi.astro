@@ -1,30 +1,30 @@
 ---
-// Ref: Plerdy 2025 — CTA Reserve/Order di tiap segmen; cara reservasi 3 langkah + tombol WA + catatan jam sibuk.
+// Ref: menu journal — alur reservasi 3 langkah sebagai daftar ber-rule + CTA WA.
 import { waLink, business } from '../data/business';
 const wa = waLink(`Halo ${business.name}, saya mau reservasi meja.`);
 const steps = [
-  { n: '01', t: 'Isi form 1 menit', d: 'Nama, tanggal, jam, jumlah orang — tanpa akun.' },
-  { n: '02', t: 'Kirim via WhatsApp', d: 'Pesan terformat rapi terbuka otomatis di WA admin.' },
-  { n: '03', t: 'Admin konfirmasi slot', d: 'Tunggu balasan, meja disiapkan sebelum kamu datang.' },
+  { n: '01', t: 'Isi form satu menit', d: 'Nama, tanggal, jam, dan jumlah orang. Tanpa akun, tanpa aplikasi.' },
+  { n: '02', t: 'Kirim lewat WhatsApp', d: 'Pesan terformat rapi langsung terbuka di WhatsApp admin.' },
+  { n: '03', t: 'Admin konfirmasi slot', d: 'Tunggu balasan; meja disiapkan sebelum kamu datang.' },
 ];
 ---
-<!-- Ref: Plerdy 2025 — 3 langkah reservasi + CTA WA -->
-<section aria-label="Cara reservasi" class="max-w-6xl mx-auto px-4">
-  <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-    <div class="md:col-span-4">
-      <p class="text-sm font-semibold text-orange-800">Cara reservasi</p>
-      <h2 class="mt-2 text-3xl md:text-4xl tracking-tight leading-none font-extrabold">Amankan meja dalam 3 langkah</h2>
-      <p class="mt-3 text-base text-stone-600">Grup &gt;6 orang atau malam minggu: reservasi H-1.</p>
-      <a href={wa} target="_blank" rel="noopener" class="mt-5 inline-flex items-center justify-center bg-orange-800 text-orange-50 px-7 py-3.5 min-h-[48px] rounded-full font-semibold hover:-translate-y-0.5 active:scale-[0.97] transition">Chat WA sekarang</a>
-      <p class="mt-3 text-xs text-stone-500">Catatan jam sibuk: padat 12.00–13.30 &amp; 18.30–21.00 — datang 30 menit lebih awal.</p>
+<!-- Ref: cerita alur reservasi 2 kolom (kiri narasi, kanan daftar ber-rule) -->
+<section aria-label="Cara reservasi">
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+    <div class="md:col-span-4 min-w-0">
+      <p class="text-[11px] font-semibold tracking-[0.18em] uppercase text-olive">Cara reservasi</p>
+      <h2 class="mt-3 font-display text-3xl md:text-4xl font-semibold tracking-tight leading-[1.05]">Amankan meja dalam tiga langkah</h2>
+      <p class="mt-4 text-base leading-relaxed text-ink/75">Grup lebih dari 6 orang atau malam minggu: reservasi H-1 agar meja disiapkan.</p>
+      <a href={wa} target="_blank" rel="noopener" class="mt-6 inline-flex items-center justify-center bg-accent text-paper px-7 py-3.5 min-h-[48px] rounded-full font-semibold hover:opacity-90 active:scale-[0.98] transition">Chat WA sekarang</a>
+      <p class="mt-3 text-xs leading-relaxed text-ink-muted">Jam padat 12.00&ndash;13.30 &amp; 18.30&ndash;21.00 WIB &mdash; datang 30 menit lebih awal.</p>
     </div>
-    <ol class="md:col-span-8 divide-y divide-orange-800/15 border-y border-orange-800/15">
+    <ol class="md:col-span-8 grid divide-y divide-olive/25 border-t border-olive/30">
       {steps.map((s) => (
-        <li class="py-5 flex gap-5 min-w-0">
-          <span class="font-mono-num text-sm text-orange-800 pt-1 shrink-0">{s.n}</span>
+        <li class="grid grid-cols-[auto_1fr] gap-5 py-6 min-w-0">
+          <span class="font-mono-num text-sm text-accent pt-1" aria-hidden="true">{s.n}</span>
           <div class="min-w-0">
-            <h3 class="font-bold text-lg tracking-tight">{s.t}</h3>
-            <p class="mt-1 text-base text-stone-600">{s.d}</p>
+            <h3 class="font-display text-lg font-semibold tracking-tight">{s.t}</h3>
+            <p class="mt-1 text-[15px] leading-relaxed text-ink/75">{s.d}</p>
           </div>
         </li>
       ))}
