@@ -1,6 +1,6 @@
 ---
 /* Ref: Awwwards GEM — on-hover dish preview (foto zoom + info); Ref: Themetags — menu highlight visual, tanpa foto generik (foto asli/seed per item). */
-/* PERF: img remote — decoding async + srcset 400w/800w + sizes; hero eager+fetchpriority, sisanya lazy. */
+/* PERF: img lokal — decoding async; highlight pertama eager+fetchpriority, sisanya lazy. */
 interface Props {
   name: string;
   price: string;
@@ -11,12 +11,25 @@ interface Props {
   eager?: boolean;
 }
 const { name, price, badge, desc, seed, waHref, eager = false } = Astro.props;
-const src400 = `https://picsum.photos/seed/${seed}/400/225`;
-const src800 = `https://picsum.photos/seed/${seed}/800/450`;
+/* Foto menu lokal (Wikimedia Commons, bebas lisensi — lihat README tabel Sumber Gambar). */
+const dims: Record<string, [number, number]> = {
+  'ogi-chicken-katsu-don': [800, 532],
+  'ogi-chicken-quesadilla': [800, 600],
+  'ogi-nasi-goreng-ogi-spesial': [800, 533],
+  'ogi-ayam-geprek-sambal-matah-nasi': [800, 520],
+  'ogi-spaghetti-aglio-e-olio-carbonara': [800, 533],
+  'ogi-burger-french-fries': [800, 519],
+  'ogi-matcha-latte-hot-ice': [800, 450],
+  'ogi-kopi-susu-gula-aren': [800, 1422],
+  'ogi-pisang-goreng-coklat-keju': [800, 480],
+  'ogi-thai-tea-lemon-tea': [800, 800],
+};
+const localSrc = `/images/${seed}.jpg`;
+const [imgW, imgH] = dims[seed] ?? [800, 450];
 ---
 <article class="dish group border border-orange-800/15 rounded-3xl overflow-hidden bg-white/60 flex flex-col">
   <div class="relative overflow-hidden">
-    <img src={src800} srcset={`${src400} 400w, ${src800} 800w`} sizes="(max-width: 640px) 100vw, 50vw" alt={name} width="800" height="450" decoding="async" loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} class="dish-img w-full aspect-video object-cover" />
+    <img src={localSrc} alt={name} width={imgW} height={imgH} decoding="async" loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} class="dish-img w-full aspect-video object-cover" />
     <span class="absolute left-3 top-3 text-[11px] font-bold tracking-wide uppercase bg-[#faf6f1]/95 text-orange-800 border border-orange-800/25 rounded-full px-3 py-1">{badge}</span>
     <span class="absolute right-3 bottom-3 font-mono-num text-xs font-semibold bg-stone-900/80 text-white rounded-full px-3 py-1.5 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">Lihat detail →</span>
   </div>
