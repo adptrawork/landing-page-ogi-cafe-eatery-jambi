@@ -13,20 +13,20 @@ const cells = [
 ];
 ---
 <!-- Ref: strip info kunjungan — grid + divide rule, runtuh rapi di mobile -->
-<section aria-label="Info kunjungan" class="border border-ink/30 rounded-3xl overflow-hidden bg-ink/6">
-  <dl class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y divide-ink/25 sm:divide-y-0 sm:divide-x border-b border-ink/25">
+<section aria-label="Info kunjungan" class="border border-ink/60 rounded-3xl overflow-hidden bg-ink/6">
+  <dl class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y divide-ink/60 sm:divide-y-0 sm:divide-x border-b border-ink/60">
     {cells.map((c) => (
       <div class="px-6 py-5 min-w-0">
-        <dt class="text-[11px] font-semibold tracking-[0.16em] uppercase text-ink/60">{c.label}</dt>
+        <dt class="text-[11px] font-semibold tracking-[0.16em] uppercase text-ink/70">{c.label}</dt>
         <dd class="mt-1.5 font-medium text-[15px] leading-snug break-words text-ink">
-          {c.href ? <a href={c.href} target={c.external ? '_blank' : undefined} rel={c.external ? 'noopener' : undefined} class="underline underline-offset-4 decoration-ink/40 hover:decoration-accent">{c.value}</a> : c.value}
+          {c.href ? <a href={c.href} target={c.external ? '_blank' : undefined} rel={c.external ? 'noopener' : undefined} class="underline underline-offset-4 decoration-ink/60 hover:decoration-accent">{c.value}</a> : c.value}
         </dd>
-        {c.sub && <dd class="mt-1 text-sm text-ink/60">{c.sub}</dd>}
+        {c.sub && <dd class="mt-1 text-sm text-ink/70">{c.sub}</dd>}
       </div>
     ))}
   </dl>
   <div class="grid sm:grid-cols-2 gap-3 px-6 py-4">
-    <a href={business.mapsUrl} target="_blank" rel="noopener" class="text-center border border-ink/40 px-6 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold text-ink hover:border-accent hover:text-accent active:scale-[0.98] transition">Rute ke lokasi</a>
+    <a href={business.mapsUrl} target="_blank" rel="noopener" class="text-center border border-ink/60 px-6 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold text-ink hover:border-accent hover:text-accent active:scale-[0.98] transition">Rute ke lokasi</a>
     <a href={waHref} target="_blank" rel="noopener" class="text-center bg-accent text-paper px-6 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold hover:opacity-90 active:scale-[0.98] transition">Chat WA reservasi</a>
   </div>
 </section>

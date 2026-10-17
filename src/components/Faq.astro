@@ -4,7 +4,7 @@ interface Item { q: string; a: string; }
 interface Props { faqs: Item[]; }
 const { faqs } = Astro.props;
 ---
-<div class="divide-y divide-ink/25 border-y border-ink/30">
+<div class="divide-y divide-ink/60 border-y border-ink/60">
   {faqs.map((f) => (
     <details class="py-4 group min-w-0">
       <summary class="cursor-pointer font-semibold text-[15px] list-none grid grid-cols-[1fr_auto] items-center gap-4 min-h-[48px] min-w-0">

@@ -15,25 +15,25 @@ interface Props {
 }
 const { name, price, badge, desc, seed, waHref, cat, index = 0, eager = false } = Astro.props;
 const dims: Record<string, [number, number]> = {
-  'ogi-chicken-katsu-don': [800, 532],
-  'ogi-chicken-quesadilla': [800, 600],
-  'ogi-nasi-goreng-ogi-spesial': [800, 533],
-  'ogi-ayam-geprek-sambal-matah-nasi': [800, 520],
-  'ogi-spaghetti-aglio-e-olio-carbonara': [800, 533],
-  'ogi-burger-french-fries': [800, 519],
-  'ogi-matcha-latte-hot-ice': [800, 450],
-  'ogi-kopi-susu-gula-aren': [800, 1422],
-  'ogi-pisang-goreng-coklat-keju': [800, 480],
-  'ogi-thai-tea-lemon-tea': [800, 800],
+  'ogi-chicken-katsu-don': [240, 160],
+  'ogi-chicken-quesadilla': [240, 180],
+  'ogi-nasi-goreng-ogi-spesial': [240, 160],
+  'ogi-ayam-geprek-sambal-matah-nasi': [240, 156],
+  'ogi-spaghetti-aglio-e-olio-carbonara': [240, 160],
+  'ogi-burger-french-fries': [240, 156],
+  'ogi-matcha-latte-hot-ice': [240, 135],
+  'ogi-kopi-susu-gula-aren': [240, 427],
+  'ogi-pisang-goreng-coklat-keju': [240, 144],
+  'ogi-thai-tea-lemon-tea': [240, 240],
 };
 const localSrc = `/images/${seed}.webp`;
 const [imgW, imgH] = dims[seed] ?? [800, 450];
 const teruji = badge === 'Teruji';
 const badgeCls = teruji
   ? 'bg-accent text-paper'
-  : 'border border-ink/50 text-ink/60';
+  : 'border border-ink/60 text-ink/70';
 ---
-<article class="dish group grid grid-cols-[84px_1fr] sm:grid-cols-[104px_1fr] gap-4 sm:gap-5 border-t border-ink/30 py-6 min-w-0" data-cat={cat} style={`--i:${index}`}>
+<article class="dish group grid grid-cols-[84px_1fr] sm:grid-cols-[104px_1fr] gap-4 sm:gap-5 border-t border-ink/60 py-6 min-w-0" data-cat={cat} style={`--i:${index}`}>
   <div class="overflow-hidden rounded-2xl bg-ink/6 self-start">
     <img src={localSrc} alt={name} width={imgW} height={imgH} decoding="async" loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} class="dish-img w-full h-[84px] sm:h-[104px] object-cover" />
   </div>

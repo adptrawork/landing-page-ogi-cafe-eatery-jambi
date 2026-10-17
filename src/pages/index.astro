@@ -28,12 +28,12 @@ const marqueeItems = [...menuItems.map((m) => m.name), ...menuItems.map((m) => m
 ---
 <BaseLayout title="OGI Cafe Jambi Danau Sipin — E-Menu & Reservasi Meja" description="OGI Cafe and Eatery Danau Sipin Jambi rating 4.8 (670 ulasan): menu Nusantara–Western–Jepang, kisaran Rp50–75rb/orang, parkir luas, reservasi 0822-8052-3250." canonicalPath="/">
   <!-- 01 HERO editorial 65/35 -->
-  <section aria-label="Hero" class="relative overflow-hidden border-b border-ink/15">
+  <section aria-label="Hero" class="relative overflow-hidden border-b border-ink/60">
     <div class="max-w-6xl mx-auto px-4 pt-10 md:pt-16 pb-6">
       <div class="grid grid-cols-1 md:grid-cols-[65fr_35fr] gap-6 md:gap-10 items-center">
         <div class="min-w-0 md:pr-6 order-1">
-          <p class="reveal text-[10px] sm:text-[11px] tracking-[0.24em] uppercase text-ink/55" style="--i:0">OGI Cafe &amp; Eatery &middot; Danau Sipin &middot; Jambi</p>
-          <h1 class="reveal mt-4 font-display text-5xl sm:text-6xl md:text-7xl leading-[0.9] tracking-[-0.02em] max-w-[11ch]" style="--i:1">
+          <p class="reveal text-[10px] sm:text-[11px] tracking-[0.24em] uppercase text-ink/70" style="--i:0">OGI Cafe &amp; Eatery &middot; Danau Sipin &middot; Jambi</p>
+          <h1 class="mt-4 font-display text-5xl sm:text-6xl md:text-7xl leading-[0.9] tracking-[-0.02em] max-w-[11ch]">
             Menu journal yang dilipat dari dapur pinggir danau
           </h1>
           <p class="reveal mt-6 text-base md:text-lg leading-relaxed text-ink/75 max-w-[46ch]" style="--i:2">
@@ -42,19 +42,19 @@ const marqueeItems = [...menuItems.map((m) => m.name), ...menuItems.map((m) => m
           </p>
           <div class="reveal flex flex-wrap gap-3 mt-8" style="--i:3">
             <a href="/menu" class="bg-accent text-paper px-7 py-3.5 min-h-[48px] inline-flex items-center justify-center rounded-full font-semibold hover:opacity-90 active:scale-[0.98] transition">Buka e-menu</a>
-            <a href="/reservasi" class="border border-ink/30 px-7 py-3.5 min-h-[48px] inline-flex items-center justify-center rounded-full font-semibold text-ink hover:border-accent hover:text-accent active:scale-[0.98] transition">Reservasi meja</a>
+            <a href="/reservasi" class="border border-ink/60 px-7 py-3.5 min-h-[48px] inline-flex items-center justify-center rounded-full font-semibold text-ink hover:border-accent hover:text-accent active:scale-[0.98] transition">Reservasi meja</a>
           </div>
           <dl class="reveal grid grid-cols-3 gap-3 mt-10 max-w-[46ch]" style="--i:4">
             <div>
-              <dt class="text-[10px] tracking-[0.18em] uppercase text-ink/55">Rating</dt>
+              <dt class="text-[10px] tracking-[0.18em] uppercase text-ink/70">Rating</dt>
               <dd class="mt-1 font-mono-num text-sm font-semibold text-ink">{business.rating}/5 &middot; {business.reviewCount}</dd>
             </div>
             <div>
-              <dt class="text-[10px] tracking-[0.18em] uppercase text-ink/55">Harga</dt>
+              <dt class="text-[10px] tracking-[0.18em] uppercase text-ink/70">Harga</dt>
               <dd class="mt-1 font-mono-num text-sm font-semibold text-ink">{business.priceRange}</dd>
             </div>
             <div>
-              <dt class="text-[10px] tracking-[0.18em] uppercase text-ink/55">Jam</dt>
+              <dt class="text-[10px] tracking-[0.18em] uppercase text-ink/70">Jam</dt>
               <dd class="mt-1 font-mono-num text-sm font-semibold text-ink">11.00–22.30</dd>
             </div>
           </dl>
@@ -72,15 +72,15 @@ const marqueeItems = [...menuItems.map((m) => m.name), ...menuItems.map((m) => m
               class="w-full aspect-[3/4] object-cover md:scale-110 md:-translate-x-8 md:-translate-y-4"
             />
           </div>
-          <figcaption class="mt-3 text-xs leading-relaxed text-ink/55">Ilustrasi suasana makan, bukan foto lokasi OGI. Kredit: Wikimedia Commons.</figcaption>
+          <figcaption class="mt-3 text-xs leading-relaxed text-ink/70">Ilustrasi suasana makan, bukan foto lokasi OGI. Kredit: Wikimedia Commons.</figcaption>
         </figure>
       </div>
 
       <!-- Tiny kinetic marquee -->
-      <div class="marquee mt-10 md:mt-14 border-y border-ink/20 py-3">
+      <div class="marquee mt-10 md:mt-14 border-y border-ink/60 py-3">
         <div class="marquee-track" aria-hidden="true">
           {marqueeItems.map((name) => (
-            <span class="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.2em] uppercase text-ink/55">
+            <span class="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.2em] uppercase text-ink/70">
               <span class="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true"></span>{name}
             </span>
           ))}
@@ -95,23 +95,23 @@ const marqueeItems = [...menuItems.map((m) => m.name), ...menuItems.map((m) => m
   </div>
 
   <!-- Sticky rail + viewported sections -->
-  <section aria-label="Isi halaman" class="max-w-6xl mx-auto px-4 py-10 md:py-14 border-t border-ink/20">
+  <section aria-label="Isi halaman" class="max-w-6xl mx-auto px-4 py-10 md:py-14 border-t border-ink/60">
     <div class="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8 md:gap-12">
       <aside class="hidden md:block">
         <nav class="sticky top-24 space-y-1" aria-label="Indeks bagian">
-          <p class="text-[10px] tracking-[0.24em] uppercase text-ink/50 pb-3">Indeks</p>
-          <a href="#menu" class="block pl-4 py-2 text-sm font-semibold text-ink/55 border-l-2 border-transparent hover:text-accent hover:border-accent transition-colors">01 E-menu</a>
-          <a href="#suasana" class="block pl-4 py-2 text-sm font-semibold text-ink/55 border-l-2 border-transparent hover:text-accent hover:border-accent transition-colors">02 Suasana</a>
-          <a href="#lokasi" class="block pl-4 py-2 text-sm font-semibold text-ink/55 border-l-2 border-transparent hover:text-accent hover:border-accent transition-colors">03 Lokasi</a>
-          <a href="#reservasi" class="block pl-4 py-2 text-sm font-semibold text-ink/55 border-l-2 border-transparent hover:text-accent hover:border-accent transition-colors">04 Reservasi</a>
-          <a href="#faq" class="block pl-4 py-2 text-sm font-semibold text-ink/55 border-l-2 border-transparent hover:text-accent hover:border-accent transition-colors">05 Tanya jawab</a>
+          <p class="text-[10px] tracking-[0.24em] uppercase text-ink/70 pb-3">Indeks</p>
+          <a href="#menu" class="block pl-4 py-2 text-sm font-semibold text-ink/70 border-l-2 border-transparent hover:text-accent hover:border-accent transition-colors">01 E-menu</a>
+          <a href="#suasana" class="block pl-4 py-2 text-sm font-semibold text-ink/70 border-l-2 border-transparent hover:text-accent hover:border-accent transition-colors">02 Suasana</a>
+          <a href="#lokasi" class="block pl-4 py-2 text-sm font-semibold text-ink/70 border-l-2 border-transparent hover:text-accent hover:border-accent transition-colors">03 Lokasi</a>
+          <a href="#reservasi" class="block pl-4 py-2 text-sm font-semibold text-ink/70 border-l-2 border-transparent hover:text-accent hover:border-accent transition-colors">04 Reservasi</a>
+          <a href="#faq" class="block pl-4 py-2 text-sm font-semibold text-ink/70 border-l-2 border-transparent hover:text-accent hover:border-accent transition-colors">05 Tanya jawab</a>
         </nav>
       </aside>
 
       <div class="space-y-20 md:space-y-28 min-w-0">
         <!-- 01 MENU -->
         <section id="menu" class="section-intro min-h-[60svh] md:min-h-[70svh] flex flex-col justify-center">
-          <p class="reveal text-[10px] tracking-[0.24em] uppercase text-ink/50" style="--i:0">01 &middot; E-Menu &middot; {menuItems.length} item</p>
+          <p class="reveal text-[10px] tracking-[0.24em] uppercase text-ink/70" style="--i:0">01 &middot; E-Menu &middot; {menuItems.length} item</p>
           <h2 class="reveal mt-4 font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em] max-w-[16ch]" style="--i:1">Satu halaman untuk lapar yang bervariasi</h2>
           <p class="reveal mt-6 text-base md:text-lg leading-relaxed text-ink/75 max-w-[58ch]" style="--i:2">
             Semua yang bisa kamu pesan, disusun seperti daftar menu cetak — dua kolom, rapi dibaca.
@@ -128,7 +128,7 @@ const marqueeItems = [...menuItems.map((m) => m.name), ...menuItems.map((m) => m
 
         <!-- 02 SUASANA -->
         <section id="suasana" class="section-intro space-y-12">
-          <p class="reveal text-[10px] tracking-[0.24em] uppercase text-ink/50" style="--i:0">02 &middot; Suasana</p>
+          <p class="reveal text-[10px] tracking-[0.24em] uppercase text-ink/70" style="--i:0">02 &middot; Suasana</p>
           <h2 class="reveal mt-3 font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em] max-w-[20ch]" style="--i:1">Meja panjang, cahaya hangat, obrolan yang betah</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
             <div class="min-w-0">
@@ -140,13 +140,13 @@ const marqueeItems = [...menuItems.map((m) => m.name), ...menuItems.map((m) => m
             </div>
             <figure class="min-w-0">
               <img src={photos.interior.src} alt={photos.interior.alt} width={photos.interior.w} height={photos.interior.h} decoding="async" loading="lazy" class="w-full aspect-[4/3] object-cover rounded-[2rem]" />
-              <figcaption class="mt-2 text-xs text-ink/55">Ilustrasi ruang kafe, bukan foto lokasi OGI.</figcaption>
+              <figcaption class="mt-2 text-xs text-ink/70">Ilustrasi ruang kafe, bukan foto lokasi OGI.</figcaption>
             </figure>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
             <figure class="min-w-0 md:order-1">
               <img src={photos.outdoor.src} alt={photos.outdoor.alt} width={photos.outdoor.w} height={photos.outdoor.h} decoding="async" loading="lazy" class="w-full aspect-[4/3] object-cover rounded-[2rem]" />
-              <figcaption class="mt-2 text-xs text-ink/55">Ilustrasi teras kafe, bukan foto lokasi OGI.</figcaption>
+              <figcaption class="mt-2 text-xs text-ink/70">Ilustrasi teras kafe, bukan foto lokasi OGI.</figcaption>
             </figure>
             <div class="min-w-0 md:order-2">
               <h3 class="font-display text-2xl font-semibold tracking-tight">Teras untuk malam minggu</h3>
@@ -164,7 +164,7 @@ const marqueeItems = [...menuItems.map((m) => m.name), ...menuItems.map((m) => m
 
         <!-- 03 LOKASI -->
         <section id="lokasi" class="section-intro">
-          <p class="reveal text-[10px] tracking-[0.24em] uppercase text-ink/50" style="--i:0">03 &middot; Lokasi</p>
+          <p class="reveal text-[10px] tracking-[0.24em] uppercase text-ink/70" style="--i:0">03 &middot; Lokasi</p>
           <h2 class="reveal mt-3 font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em] max-w-[18ch]" style="--i:1">Danau Sipin, Kota Jambi</h2>
           <div class="mt-8">
             <ReviewMaps />
@@ -173,7 +173,7 @@ const marqueeItems = [...menuItems.map((m) => m.name), ...menuItems.map((m) => m
 
         <!-- 04 RESERVASI -->
         <section id="reservasi" class="section-intro">
-          <p class="reveal text-[10px] tracking-[0.24em] uppercase text-ink/50" style="--i:0">04 &middot; Reservasi</p>
+          <p class="reveal text-[10px] tracking-[0.24em] uppercase text-ink/70" style="--i:0">04 &middot; Reservasi</p>
           <h2 class="reveal mt-3 font-display text-4xl md:text-6xl leading-[0.95] tracking-[-0.02em] max-w-[18ch]" style="--i:1">Amankan mejamu sebelum malam ramai</h2>
           <div class="mt-8">
             <StepsReservasi />
@@ -181,27 +181,27 @@ const marqueeItems = [...menuItems.map((m) => m.name), ...menuItems.map((m) => m
         </section>
 
         <!-- 05 KATEGORI & JAM + FAQ -->
-        <section id="faq" class="section-intro border-t border-ink/15 pt-12 mt-4">
+        <section id="faq" class="section-intro border-t border-ink/60 pt-12 mt-4">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
             <div class="min-w-0">
-              <p class="text-[10px] tracking-[0.24em] uppercase text-ink/50">Kategori menu</p>
+              <p class="text-[10px] tracking-[0.24em] uppercase text-ink/70">Kategori menu</p>
               <h3 class="mt-3 font-display text-2xl md:text-3xl font-semibold tracking-tight">Apa yang mau kamu cari?</h3>
-              <ul class="mt-6 divide-y divide-ink/20 border-t border-ink/20">
+              <ul class="mt-6 divide-y divide-ink/60 border-t border-ink/60">
                 {categoryCounts.map((c) => (
                   <li class="grid grid-cols-[1fr_auto] items-baseline gap-4 py-4">
                     <a href={`/menu#menu-journal`} class="font-display text-lg font-semibold tracking-tight text-ink hover:text-accent transition-colors">{c.label}</a>
-                    <span class="font-mono-num text-sm text-ink/60">{String(c.count).padStart(2, '0')} item</span>
+                    <span class="font-mono-num text-sm text-ink/70">{String(c.count).padStart(2, '0')} item</span>
                   </li>
                 ))}
               </ul>
             </div>
             <div class="min-w-0">
-              <p class="text-[10px] tracking-[0.24em] uppercase text-ink/50">Jam ramai</p>
+              <p class="text-[10px] tracking-[0.24em] uppercase text-ink/70">Jam ramai</p>
               <h3 class="mt-3 font-display text-2xl md:text-3xl font-semibold tracking-tight">Pilih waktu kunjunganmu</h3>
-              <dl class="mt-6 divide-y divide-ink/20 border-t border-ink/20">
+              <dl class="mt-6 divide-y divide-ink/60 border-t border-ink/60">
                 {busy.map((b) => (
                   <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-1 sm:gap-4 py-4">
-                    <dt class="font-semibold text-[15px]">{b.k} <span class="block text-sm font-normal text-ink/60">{b.note}</span></dt>
+                    <dt class="font-semibold text-[15px]">{b.k} <span class="block text-sm font-normal text-ink/70">{b.note}</span></dt>
                     <dd class="font-mono-num text-sm text-accent sm:text-right">{b.v}</dd>
                   </div>
                 ))}
@@ -211,7 +211,7 @@ const marqueeItems = [...menuItems.map((m) => m.name), ...menuItems.map((m) => m
 
           <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 mt-12 md:mt-16">
             <div class="md:col-span-5 min-w-0">
-              <p class="text-[10px] tracking-[0.24em] uppercase text-ink/50">Tanya jawab</p>
+              <p class="text-[10px] tracking-[0.24em] uppercase text-ink/70">Tanya jawab</p>
               <h2 class="mt-3 font-display text-3xl md:text-4xl font-semibold tracking-tight leading-[1.05]">Pertanyaan yang sering muncul</h2>
               <p class="mt-4 text-[15px] leading-relaxed text-ink/75">Belum terjawab? Chat admin lewat WhatsApp, dibalas cepat saat jam buka.</p>
             </div>

@@ -38,12 +38,12 @@ const P = (key: string, w: number, h: number, alt: string): Photo => ({
 });
 
 export const photos = {
-  interior: P('interior-1', 800, 600, 'Ilustrasi interior kafe: meja, kursi, dan area kasir — bukan foto lokasi OGI'),
-  outdoor: P('outdoor-1', 800, 594, 'Ilustrasi teras kafe outdoor dengan meja dan kursi — bukan foto lokasi OGI'),
-  meja: P('meja-1', 800, 600, 'Ilustrasi meja makan yang ditata rapi di restoran — bukan foto lokasi OGI'),
-  kopi: P('kopi-1', 800, 600, 'Ilustrasi secangkir espresso di meja kafe — bukan foto menu OGI'),
-  suasa: P('suasa-1', 800, 600, 'Ilustrasi orang makan dan menunggu di meja restoran — bukan foto lokasi OGI'),
-  spot: P('spot-1', 800, 533, 'Ilustrasi suasana pagi sibuk di dalam kafe — bukan foto lokasi OGI'),
+  interior: P('interior-1', 640, 480, 'Ilustrasi interior kafe: meja, kursi, dan area kasir — bukan foto lokasi OGI'),
+  outdoor: P('outdoor-1', 640, 475, 'Ilustrasi teras kafe outdoor dengan meja dan kursi — bukan foto lokasi OGI'),
+  meja: P('meja-1', 640, 480, 'Ilustrasi meja makan yang ditata rapi di restoran — bukan foto lokasi OGI'),
+  kopi: P('kopi-1', 640, 480, 'Ilustrasi secangkir espresso di meja kafe — bukan foto menu OGI'),
+  suasa: P('suasa-1', 640, 480, 'Ilustrasi orang makan dan menunggu di meja restoran — bukan foto lokasi OGI'),
+  spot: P('spot-1', 640, 426, 'Ilustrasi suasana pagi sibuk di dalam kafe — bukan foto lokasi OGI'),
 };
 
 /* Cerita suasana (zig-zag) di beranda & galeri. */
